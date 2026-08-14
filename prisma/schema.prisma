@@ -1,0 +1,238 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Registration {
+  id           String   @id @default(cuid())
+  studentName  String
+  dateOfBirth  String?
+  gender       String?
+  level        String
+  academicYear String
+  parentName   String
+  phone        String
+  email        String
+  nationality  String?
+  source       String?
+  notes        String?
+  status       String   @default("pending")
+  createdAt    DateTime @default(now())
+}
+
+model TourBooking {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String
+  email     String?
+  day       String
+  time      String
+  children  String?
+  status    String   @default("pending")
+  createdAt DateTime @default(now())
+}
+
+model EventRegistration {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String
+  email     String
+  ageGroups String
+  notes     String?
+  status    String   @default("registered")
+  createdAt DateTime @default(now())
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String?
+  email     String
+  subject   String?
+  message   String?
+  status    String   @default("unread")
+  createdAt DateTime @default(now())
+}
+
+model FeeRow {
+  id        String   @id @default(cuid())
+  group     String
+  term1     Int
+  term2     Int
+  term3     Int
+  total     Int
+  totalVat  Float
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model AdmissionsStep {
+  id        String   @id @default(cuid())
+  num       String
+  titleAr   String
+  titleEn   String
+  color     String   @default("#0D5C4E")
+  itemsAr   String
+  itemsEn   String
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model SchoolSetting {
+  key   String @id
+  valAr String @default("")
+  valEn String @default("")
+}
+
+model SchoolEvent {
+  id         String   @id @default(cuid())
+  titleAr    String
+  titleEn    String
+  dateAr     String
+  dateEn     String
+  timeAr     String
+  timeEn     String
+  locationAr String
+  locationEn String
+  descAr     String
+  descEn     String
+  dateISO    String?
+  active     Boolean  @default(true)
+  createdAt  DateTime @default(now())
+}
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  textAr    String
+  textEn    String
+  name      String
+  roleAr    String
+  roleEn    String
+  initials  String
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model FeeOneTime {
+  id        String   @id @default(cuid())
+  labelAr   String
+  labelEn   String
+  amount    Int
+  noteAr    String
+  noteEn    String
+  sortOrder Int      @default(0)
+}
+
+model FeeScheduleTerm {
+  id        String   @id @default(cuid())
+  labelAr   String
+  labelEn   String
+  pct       String
+  dateAr    String
+  dateEn    String
+  sortOrder Int      @default(0)
+}
+
+model FeeAdditional {
+  id        String   @id @default(cuid())
+  icon      String
+  labelAr   String
+  labelEn   String
+  valueAr   String
+  valueEn   String
+  sortOrder Int      @default(0)
+}
+
+model PageSection {
+  id        String @id @default(cuid())
+  pageKey   String
+  titleAr   String
+  titleEn   String
+  bodyAr    String
+  bodyEn    String
+  sortOrder Int    @default(0)
+}
+
+model Policy {
+  id         String @id @default(cuid())
+  categoryAr String
+  categoryEn String
+  titleAr    String
+  titleEn    String
+  fileUrl    String @default("")
+  sortOrder  Int    @default(0)
+}
+
+model TermDate {
+  id              String @id @default(cuid())
+  year            String @default("2025-2026")
+  termNumber      Int
+  labelAr         String
+  labelEn         String
+  startAr         String
+  startEn         String
+  endAr           String
+  endEn           String
+  halfTermStartAr String @default("")
+  halfTermStartEn String @default("")
+  halfTermEndAr   String @default("")
+  halfTermEndEn   String @default("")
+  sortOrder       Int    @default(0)
+}
+
+model AcademicCalendarEvent {
+  id        String  @id @default(cuid())
+  titleAr   String
+  titleEn   String
+  dateAr    String
+  dateEn    String
+  category  String  @default("general")
+  active    Boolean @default(true)
+  sortOrder Int     @default(0)
+}
+
+model Job {
+  id        String   @id @default(cuid())
+  titleAr   String
+  titleEn   String
+  descAr    String
+  descEn    String
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model AspaMember {
+  id        String @id @default(cuid())
+  nameAr    String
+  nameEn    String
+  roleAr    String
+  roleEn    String
+  sortOrder Int    @default(0)
+}
+
+model NewsItem {
+  id        String   @id @default(cuid())
+  icon      String   @default("📰")
+  titleAr   String
+  titleEn   String
+  descAr    String
+  descEn    String
+  date      String
+  active    Boolean  @default(true)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model PendingTestimonial {
+  id        String   @id @default(cuid())
+  textAr    String
+  textEn    String   @default("")
+  name      String
+  roleAr    String
+  phone     String   @default("")
+  status    String   @default("pending")
+  createdAt DateTime @default(now())
+}

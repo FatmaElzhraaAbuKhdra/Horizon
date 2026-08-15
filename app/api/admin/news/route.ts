@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { isAdminAuthed, unauthorized } from "@/lib/admin-auth";
 import { prisma } from "@/lib/db";
+import { revalidateTag } from "next/cache";
 
 const SEED = [
   { icon: "🏆", titleAr: "طلابنا يفوزون في بطولة الرياضيات الإقليمية", titleEn: "Our Students Win Regional Maths Championship", descAr: "أحرز طلاب مدارس الأفق العالمية المركز الأول في بطولة الرياضيات الإقليمية المقامة بالرياض.", descEn: "Horizon International Schools students secured first place in the Regional Mathematics Championship held in Riyadh.", date: "2026-05-10", sortOrder: 0 },
@@ -33,5 +34,6 @@ export async function POST(req: Request) {
       sortOrder: body.sortOrder ?? 99,
     },
   });
+  revalidateTag("news", {});
   return NextResponse.json(row, { status: 201 });
 }

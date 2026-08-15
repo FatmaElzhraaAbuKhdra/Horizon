@@ -1,6 +1,7 @@
 ﻿import { NextResponse } from "next/server";
 import { isAdminAuthed, unauthorized } from "@/lib/admin-auth";
 import { prisma } from "@/lib/db";
+import { revalidateTag } from "next/cache";
 
 const SEED = [
   { textAr: "ابنتي تحبّ المدرسة بشكل لم نتوقعه. المعلمون يعطون اهتماماً شخصياً لكل طالب والمنهج رائع وممتع.", textEn: "My daughter loves school in a way we never expected. The teachers give individual attention and the curriculum is wonderful.", name: "نورة العنزي", roleAr: "والدة طالبة في الصف الثالث", roleEn: "Parent of a Year 3 student", initials: "ن.ع", sortOrder: 0 },
@@ -22,5 +23,6 @@ export async function POST(req: Request) {
   if (!(await isAdminAuthed())) return unauthorized();
   const body = await req.json();
   const row = await prisma.testimonial.create({ data: body });
+  revalidateTag("testimonials", {});
   return NextResponse.json(row);
 }

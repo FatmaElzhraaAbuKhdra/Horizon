@@ -1,6 +1,5 @@
 ﻿import { type Locale } from "@/lib/i18n";
-import { prisma } from "@/lib/db";
-import { JOBS_SEED } from "@/lib/seed-data";
+import { getJobs } from "@/lib/db-cache";
 
 export const dynamic = "force-dynamic";
 import SubPage from "@/components/SubPage";
@@ -11,11 +10,7 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
   const { locale } = await params as { locale: Locale };
   const isRtl = locale === "ar";
 
-  let jobs = await prisma.job.findMany({ where: { active: true }, orderBy: { createdAt: "desc" } }).catch(() => []);
-  if (jobs.length === 0) {
-    await prisma.job.createMany({ data: JOBS_SEED }).catch(() => {});
-    jobs = await prisma.job.findMany({ where: { active: true }, orderBy: { createdAt: "desc" } }).catch(() => []);
-  }
+  const jobs = await getJobs();
 
   return (
     <SubPage locale={locale} title={isRtl ? "فرص التوظيف" : "Employment Opportunities"}>

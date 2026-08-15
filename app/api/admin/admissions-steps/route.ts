@@ -1,6 +1,7 @@
 ﻿import { NextResponse } from "next/server";
 import { isAdminAuthed, unauthorized } from "@/lib/admin-auth";
 import { prisma } from "@/lib/db";
+import { revalidateTag } from "next/cache";
 
 const SEED = [
   {
@@ -49,5 +50,6 @@ export async function POST(req: Request) {
       sortOrder: body.sortOrder ?? 99,
     },
   });
+  revalidateTag("admissions", {});
   return NextResponse.json(step, { status: 201 });
 }

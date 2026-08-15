@@ -1,5 +1,5 @@
 ﻿import { type Locale, t } from "@/lib/i18n";
-import { prisma } from "@/lib/db";
+import { getSettings } from "@/lib/db-cache";
 import SubPage from "@/components/SubPage";
 
 export const dynamic = "force-dynamic";
@@ -11,7 +11,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
 
   let contactInfo = null;
   try {
-    const settings = await prisma.schoolSetting.findMany();
+    const settings = await getSettings();
     if (settings.length > 0) {
       const m: Record<string, { valAr: string; valEn: string }> = {};
       settings.forEach((s: { key: string; valAr: string; valEn: string }) => { m[s.key] = { valAr: s.valAr, valEn: s.valEn }; });

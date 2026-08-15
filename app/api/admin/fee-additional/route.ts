@@ -1,6 +1,7 @@
 ﻿import { NextResponse } from "next/server";
 import { isAdminAuthed, unauthorized } from "@/lib/admin-auth";
 import { prisma } from "@/lib/db";
+import { revalidateTag } from "next/cache";
 
 const SEED = [
   { icon: "💰", labelAr: "وديعة ضمان قابلة للاسترداد", labelEn: "Refundable Security Deposit", valueAr: "٢,٥٠٠ ريال — تُدفع في ١ أبريل (الفصل الثالث)", valueEn: "2,500 SAR — due 1 April (Term 3)", sortOrder: 0 },
@@ -23,5 +24,6 @@ export async function POST(req: Request) {
   if (!(await isAdminAuthed())) return unauthorized();
   const body = await req.json();
   const row = await prisma.feeAdditional.create({ data: body });
+  revalidateTag("fees", {});
   return NextResponse.json(row);
 }

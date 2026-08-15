@@ -1,6 +1,7 @@
 ﻿import { NextResponse } from "next/server";
 import { isAdminAuthed, unauthorized } from "@/lib/admin-auth";
 import { prisma } from "@/lib/db";
+import { revalidateTag } from "next/cache";
 
 const SEED = [
   {
@@ -24,5 +25,6 @@ export async function POST(req: Request) {
   if (!(await isAdminAuthed())) return unauthorized();
   const body = await req.json();
   const row = await prisma.schoolEvent.create({ data: body });
+  revalidateTag("events", {});
   return NextResponse.json(row);
 }

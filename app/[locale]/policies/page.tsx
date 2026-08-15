@@ -1,6 +1,5 @@
 ﻿import { type Locale } from "@/lib/i18n";
-import { prisma } from "@/lib/db";
-import { POLICIES_SEED } from "@/lib/seed-data";
+import { getPolicies } from "@/lib/db-cache";
 
 export const dynamic = "force-dynamic";
 import SubPage from "@/components/SubPage";
@@ -11,11 +10,7 @@ export default async function PoliciesPage({ params }: { params: Promise<{ local
   const { locale } = await params as { locale: Locale };
   const isRtl = locale === "ar";
 
-  let policies = await prisma.policy.findMany({ orderBy: { sortOrder: "asc" } }).catch(() => []);
-  if (policies.length === 0) {
-    await prisma.policy.createMany({ data: POLICIES_SEED }).catch(() => {});
-    policies = await prisma.policy.findMany({ orderBy: { sortOrder: "asc" } }).catch(() => []);
-  }
+  const policies = await getPolicies();
 
   type PolicyItem = (typeof policies)[number];
   const grouped = policies.reduce((acc: Record<string, PolicyItem[]>, p) => {

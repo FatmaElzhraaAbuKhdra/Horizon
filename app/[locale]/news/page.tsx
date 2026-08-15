@@ -1,5 +1,5 @@
 import { type Locale, t } from "@/lib/i18n";
-import { prisma } from "@/lib/db";
+import { getNews } from "@/lib/db-cache";
 import SubPage from "@/components/SubPage";
 
 export const dynamic = "force-dynamic";
@@ -18,7 +18,7 @@ export default async function NewsPage({ params }: { params: Promise<{ locale: s
 
   let dbItems: typeof FALLBACK = [];
   try {
-    const rows = await prisma.newsItem.findMany({ where: { active: true }, orderBy: { sortOrder: "asc" } });
+    const rows = await getNews();
     if (rows.length > 0) dbItems = rows.map(r => ({ id: r.id, icon: r.icon, date: r.date, titleAr: r.titleAr, titleEn: r.titleEn, descAr: r.descAr, descEn: r.descEn }));
   } catch {}
 

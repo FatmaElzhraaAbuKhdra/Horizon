@@ -1,6 +1,5 @@
 ﻿import { type Locale } from "@/lib/i18n";
-import { prisma } from "@/lib/db";
-import { ASPA_MEMBERS_SEED } from "@/lib/seed-data";
+import { getAspaMembers } from "@/lib/db-cache";
 
 export const dynamic = "force-dynamic";
 import SubPage from "@/components/SubPage";
@@ -11,11 +10,7 @@ export default async function AspaPage({ params }: { params: Promise<{ locale: s
   const { locale } = await params as { locale: Locale };
   const isRtl = locale === "ar";
 
-  let members = await prisma.aspaMember.findMany({ orderBy: { sortOrder: "asc" } }).catch(() => []);
-  if (members.length === 0) {
-    await prisma.aspaMember.createMany({ data: ASPA_MEMBERS_SEED }).catch(() => {});
-    members = await prisma.aspaMember.findMany({ orderBy: { sortOrder: "asc" } }).catch(() => []);
-  }
+  const members = await getAspaMembers();
 
   const objectives = isRtl ? [
     "تعزيز الانتماء بين أولياء الأمور والمعلمين والطلاب",

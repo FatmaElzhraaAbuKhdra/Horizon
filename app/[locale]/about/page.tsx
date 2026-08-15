@@ -1,7 +1,7 @@
 import { type Locale } from "@/lib/i18n";
 import SubPage from "@/components/SubPage";
 import { slotImage, slotImages } from "@/lib/slots";
-import { prisma } from "@/lib/db";
+import { getSettings } from "@/lib/db-cache";
 import ImageSlider from "@/components/ImageSlider";
 
 const C = { dark: "#2D0864", gold: "#B300C4", bg: "#FAF7FF", card: "#fff", border: "#E8E0F5", muted: "#5A5A5A" };
@@ -99,7 +99,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   const [heroImg, galleryImgs, allSettings] = await Promise.all([
     slotImage("about-hero"),
     slotImages("about-gallery"),
-    prisma.schoolSetting.findMany().catch(() => [] as { key: string; valAr: string; valEn: string }[]),
+    getSettings(),
   ]);
 
   const map: Record<string, { valAr: string; valEn: string }> = {};

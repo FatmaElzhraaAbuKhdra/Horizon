@@ -1,6 +1,7 @@
 ﻿import { NextResponse } from "next/server";
 import { isAdminAuthed, unauthorized } from "@/lib/admin-auth";
 import { prisma } from "@/lib/db";
+import { revalidateTag } from "next/cache";
 
 const SEED = [
   { group: "رياض الأطفال (Nursery)",              term1: 18600, term2: 18600, term3: 9300,  total: 46500, totalVat: 53475, sortOrder: 0 },
@@ -34,5 +35,6 @@ export async function POST(req: Request) {
       sortOrder: sortOrder ?? 99,
     },
   });
+  revalidateTag("fees", {});
   return NextResponse.json(row, { status: 201 });
 }

@@ -1,6 +1,5 @@
 ﻿import { type Locale } from "@/lib/i18n";
-import { prisma } from "@/lib/db";
-import { TERM_DATES_SEED } from "@/lib/seed-data";
+import { getTermDates } from "@/lib/db-cache";
 
 export const dynamic = "force-dynamic";
 import SubPage from "@/components/SubPage";
@@ -11,11 +10,7 @@ export default async function TermDatesPage({ params }: { params: Promise<{ loca
   const { locale } = await params as { locale: Locale };
   const isRtl = locale === "ar";
 
-  let terms = await prisma.termDate.findMany({ orderBy: { sortOrder: "asc" } }).catch(() => []);
-  if (terms.length === 0) {
-    await prisma.termDate.createMany({ data: TERM_DATES_SEED }).catch(() => {});
-    terms = await prisma.termDate.findMany({ orderBy: { sortOrder: "asc" } }).catch(() => []);
-  }
+  const terms = await getTermDates();
 
   const termColors = ["#7A24B2", "#B300C4", "#2D0864"];
 

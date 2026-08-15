@@ -1,6 +1,5 @@
 ﻿import { type Locale } from "@/lib/i18n";
-import { prisma } from "@/lib/db";
-import { ACADEMIC_EVENTS_SEED } from "@/lib/seed-data";
+import { getCalendarEvents } from "@/lib/db-cache";
 
 export const dynamic = "force-dynamic";
 import SubPage from "@/components/SubPage";
@@ -22,11 +21,7 @@ export default async function CalendarEventsPage({ params }: { params: Promise<{
   const { locale } = await params as { locale: Locale };
   const isRtl = locale === "ar";
 
-  let events = await prisma.academicCalendarEvent.findMany({ where: { active: true }, orderBy: { sortOrder: "asc" } }).catch(() => []);
-  if (events.length === 0) {
-    await prisma.academicCalendarEvent.createMany({ data: ACADEMIC_EVENTS_SEED }).catch(() => {});
-    events = await prisma.academicCalendarEvent.findMany({ where: { active: true }, orderBy: { sortOrder: "asc" } }).catch(() => []);
-  }
+  const events = await getCalendarEvents();
 
   return (
     <SubPage locale={locale} title={isRtl ? "الأحداث الأكاديمية" : "Academic Calendar Events"}>

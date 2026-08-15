@@ -1,6 +1,7 @@
 ﻿import { NextResponse } from "next/server";
 import { isAdminAuthed, unauthorized } from "@/lib/admin-auth";
 import { prisma } from "@/lib/db";
+import { revalidateTag } from "next/cache";
 
 export async function PATCH(req: Request, { params }: { params: Promise<{ id: string }> }) {
   if (!(await isAdminAuthed())) return unauthorized();
@@ -17,6 +18,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
   if (body.sortOrder !== undefined) update.sortOrder = Number(body.sortOrder);
 
   const step = await prisma.admissionsStep.update({ where: { id }, data: update });
+  revalidateTag("admissions", {});
   return NextResponse.json(step);
 }
 
@@ -24,5 +26,6 @@ export async function DELETE(_: Request, { params }: { params: Promise<{ id: str
   if (!(await isAdminAuthed())) return unauthorized();
   const { id } = await params;
   await prisma.admissionsStep.delete({ where: { id } });
+  revalidateTag("admissions", {});
   return NextResponse.json({ ok: true });
 }

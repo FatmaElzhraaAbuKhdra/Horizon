@@ -1,5 +1,6 @@
 ﻿import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
 async function auth() {
@@ -26,5 +27,6 @@ export async function POST(req: Request) {
   if (!await auth()) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const data = await req.json();
   const row = await prisma.termDate.create({ data });
+  revalidateTag("term-dates", {});
   return NextResponse.json(row);
 }

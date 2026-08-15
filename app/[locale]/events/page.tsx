@@ -1,5 +1,5 @@
 ﻿import { type Locale, t } from "@/lib/i18n";
-import { prisma } from "@/lib/db";
+import { getAllEvents } from "@/lib/db-cache";
 import SubPage from "@/components/SubPage";
 
 export const dynamic = "force-dynamic";
@@ -17,7 +17,7 @@ export default async function EventsPage({ params }: { params: Promise<{ locale:
   }> = [];
 
   try {
-    events = await prisma.schoolEvent.findMany({ where: { active: true }, orderBy: { createdAt: "asc" } });
+    events = await getAllEvents();
   } catch {}
 
   // Fallback to i18n if DB empty

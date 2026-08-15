@@ -7,6 +7,7 @@ const cairo = Cairo({
   weight: ["400", "600", "700"],
   variable: "--font-cairo",
   display: "swap",
+  preload: false,
 });
 
 const amiri = Amiri({
@@ -14,6 +15,7 @@ const amiri = Amiri({
   weight: ["400", "700"],
   variable: "--font-amiri",
   display: "swap",
+  preload: false,
 });
 
 export const viewport: Viewport = {

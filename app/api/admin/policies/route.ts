@@ -1,5 +1,6 @@
 ﻿import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
 async function auth() {
@@ -39,5 +40,6 @@ export async function POST(req: Request) {
   if (!await auth()) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const data = await req.json();
   const row = await prisma.policy.create({ data });
+  revalidateTag("policies", {});
   return NextResponse.json(row);
 }

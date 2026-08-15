@@ -1,6 +1,7 @@
 ﻿import { NextResponse } from "next/server";
 import { isAdminAuthed, unauthorized } from "@/lib/admin-auth";
 import { prisma } from "@/lib/db";
+import { revalidateTag } from "next/cache";
 
 const DEFAULTS: Array<{ key: string; valAr: string; valEn: string }> = [
   { key: "contact.phone",   valAr: "+920015440", valEn: "+920015440" },
@@ -29,5 +30,6 @@ export async function PUT(req: Request) {
     update: { valAr, valEn },
     create: { key, valAr, valEn },
   });
+  revalidateTag("settings", {});
   return NextResponse.json(row);
 }

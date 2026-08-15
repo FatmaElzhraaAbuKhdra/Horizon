@@ -26,7 +26,6 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
-  output: "standalone",
   typescript: { ignoreBuildErrors: true },
   async redirects() {
     return [

@@ -8,6 +8,7 @@ import { Toast, inputStyle, btnPrimary } from "./Modal";
 
 type ToastMsg = { title: string; desc: string; type: "success" | "error" } | null;
 
+// ─── Brand ─────────────────────────────────────────────────────────────────────
 const C = {
   primary:   "#7A24B2",
   dark:      "#2D0864",
@@ -19,6 +20,7 @@ const C = {
   light:     "#8A8A8A",
 };
 
+// ─── CSS ───────────────────────────────────────────────────────────────────────
 const CSS = `
   html, body { overflow-x: hidden; }
 
@@ -243,7 +245,9 @@ const CSS = `
   .contact-form.in { opacity: 1; transform: none; }
 `;
 
+// ─── Canvas Particles ──────────────────────────────────────────────────────────
 
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 function SectionTag({ children }: { children: React.ReactNode }) {
   return (
     <span style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(122,36,178,.08)", color: "#7A24B2", padding: "5px 16px", borderRadius: 40, fontSize: 13, fontWeight: 700, border: "1px solid rgba(122,36,178,.14)", letterSpacing: .4 }}>
@@ -278,6 +282,7 @@ function ScrollTop() {
   );
 }
 
+// ─── DB types ──────────────────────────────────────────────────────────────────
 interface DbEvent {
   titleAr: string; titleEn: string; dateAr: string; dateEn: string;
   timeAr: string; timeEn: string; locationAr: string; locationEn: string;
@@ -288,6 +293,7 @@ interface DbTestimonial {
   roleAr: string; roleEn: string; initials: string;
 }
 
+// ─── Gallery Slider ───────────────────────────────────────────────────────────
 function GallerySlider({ images, isRtl, dark, gold, bg, speed }: { images: string[]; isRtl: boolean; dark: string; gold: string; bg: string; speed: number }) {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -327,57 +333,70 @@ function GallerySlider({ images, isRtl, dark, gold, bg, speed }: { images: strin
 
   return (
     <section style={{ background: bg, padding: "4rem 0" }}>
-            <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 2rem", marginBottom: "2rem" }}>
+      {/* Header */}
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 2rem", marginBottom: "2rem" }}>
         <SectionTag>{isRtl ? "معرض الصور" : "Photo Gallery"}</SectionTag>
         <h2 style={{ fontFamily: "Amiri,serif", fontSize: "clamp(26px,3.5vw,42px)", color: dark, margin: "1rem 0 0", lineHeight: 1.3 }}>
           {isRtl ? "لقطات من مدرستنا" : "Glimpses of Our School"}
         </h2>
       </div>
 
-            <div
+      {/* Full-width slider */}
+      <div
         style={{ position: "relative", width: "100%", overflow: "hidden" }}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
-                <div className="gallery-img-wrap" style={{ position: "relative", width: "100%", aspectRatio: "16/9", overflow: "hidden" }}>
-          {images.map((src, i) => (
-            <div
-              key={src}
-              style={{
-                position: "absolute", inset: 0,
-                opacity: i === active ? 1 : 0,
-                transform: i === active ? "scale(1)" : "scale(1.03)",
-                transition: "opacity .35s ease, transform .35s ease",
-              }}
-            >
-                            <img
-                src={src}
-                alt=""
-                aria-hidden="true"
+        {/* Images — only render active + neighbours to avoid loading all at once */}
+        <div className="gallery-img-wrap" style={{ position: "relative", width: "100%", aspectRatio: "16/9", overflow: "hidden" }}>
+          {images.map((src, i) => {
+            const nextI = (active + 1) % total;
+            const prevI = (active - 1 + total) % total;
+            if (i !== active && i !== nextI && i !== prevI) return null;
+            return (
+              <div
+                key={src}
                 style={{
                   position: "absolute", inset: 0,
-                  width: "100%", height: "100%",
-                  objectFit: "cover",
-                  filter: "blur(18px) brightness(0.55)",
-                  transform: "scale(1.08)",
-                  display: "block",
+                  opacity: i === active ? 1 : 0,
+                  transform: i === active ? "scale(1)" : "scale(1.03)",
+                  transition: "opacity .35s ease, transform .35s ease",
                 }}
-              />
-                            <img
-                src={src}
-                alt=""
-                style={{
-                  position: "absolute", inset: 0,
-                  width: "100%", height: "100%",
-                  objectFit: "contain",
-                  display: "block",
-                }}
-              />
-            </div>
-          ))}
+              >
+                <img
+                  src={src}
+                  alt=""
+                  aria-hidden="true"
+                  loading={i === active ? "eager" : "lazy"}
+                  decoding="async"
+                  style={{
+                    position: "absolute", inset: 0,
+                    width: "100%", height: "100%",
+                    objectFit: "cover",
+                    filter: "blur(18px) brightness(0.55)",
+                    transform: "scale(1.08)",
+                    display: "block",
+                  }}
+                />
+                <img
+                  src={src}
+                  alt=""
+                  loading={i === active ? "eager" : "lazy"}
+                  decoding="async"
+                  style={{
+                    position: "absolute", inset: 0,
+                    width: "100%", height: "100%",
+                    objectFit: "contain",
+                    display: "block",
+                  }}
+                />
+              </div>
+            );
+          })}
         </div>
 
-                {total > 1 && (<>
+        {/* Arrows */}
+        {total > 1 && (<>
           {arrowBtn(prev, "left",  isRtl ? "التالي"   : "Previous")}
           {arrowBtn(next, "right", isRtl ? "السابق" : "Next")}
         </>)}
@@ -411,6 +430,7 @@ function GallerySlider({ images, isRtl, dark, gold, bg, speed }: { images: strin
   );
 }
 
+// ─── Main Component ────────────────────────────────────────────────────────────
 export default function HomePage({ locale, dbEvent, dbTestimonials, aboutImage, galleryImages, heroImage, gallerySpeed }: {
   locale: Locale;
   dbEvent?: DbEvent | null;
@@ -447,20 +467,25 @@ export default function HomePage({ locale, dbEvent, dbTestimonials, aboutImage, 
       }))
     : tr.testimonials.list;
 
+  // ── Modals & Toast ──
   const [showRegister, setShowRegister] = useState(false);
   const [showTour,     setShowTour]     = useState(false);
   const [showEvent,    setShowEvent]    = useState(false);
   const [toast,        setToast]        = useState<ToastMsg>(null);
 
+  // ── Testimonials slider ──
   const [tmIndex, setTmIndex] = useState(0);
   const [tmPaused, setTmPaused] = useState(false);
 
+  // ── Contact form ──
   const [contactForm,    setContactForm]    = useState({ name: "", phone: "", email: "", subject: "", message: "" });
   const [contactDone,    setContactDone]    = useState(false);
   const [contactLoading, setContactLoading] = useState(false);
 
+  // ── Event countdown ──
   const [countdown, setCountdown] = useState({ d: "00", h: "00", m: "00", s: "00" });
 
+  // ── GSAP refs ──
   const counterRef = useRef<HTMLSpanElement>(null);
   const heroRef    = useRef<HTMLElement>(null);
   const videoRef   = useRef<HTMLVideoElement>(null);
@@ -472,6 +497,7 @@ export default function HomePage({ locale, dbEvent, dbTestimonials, aboutImage, 
   const testRef    = useRef<HTMLElement>(null);
   const contactRef = useRef<HTMLElement>(null);
 
+  // ── Countdown timer ──
   useEffect(() => {
     const target = dbEvent?.dateISO ? new Date(dbEvent.dateISO).getTime() : 0;
     if (!target) return;
@@ -489,6 +515,7 @@ export default function HomePage({ locale, dbEvent, dbTestimonials, aboutImage, 
     return () => clearInterval(id);
   }, [dbEvent?.dateISO]);
 
+  // ── Testimonials auto-play ──
   const tmNext = useCallback((len: number) => setTmIndex(i => (i + 1) % len), []);
   const tmPrev = useCallback((len: number) => setTmIndex(i => (i - 1 + len) % len), []);
   useEffect(() => {
@@ -498,6 +525,7 @@ export default function HomePage({ locale, dbEvent, dbTestimonials, aboutImage, 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tmPaused, tmNext]);
 
+  // ── Counter animation (hero watermark number) ──
   useEffect(() => {
     const el = counterRef.current;
     if (!el) return;
@@ -519,6 +547,7 @@ export default function HomePage({ locale, dbEvent, dbTestimonials, aboutImage, 
     return () => cancelAnimationFrame(raf);
   }, [isRtl]);
 
+  // ── Scroll reveals via IntersectionObserver (replaces GSAP ScrollTrigger) ──
   useEffect(() => {
     const io = new IntersectionObserver(
       entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }),
@@ -531,6 +560,7 @@ export default function HomePage({ locale, dbEvent, dbTestimonials, aboutImage, 
     return () => io.disconnect();
   }, []);
 
+  // ── Contact submit ──
   const submitContact = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!contactForm.name || !contactForm.email)
@@ -550,6 +580,7 @@ export default function HomePage({ locale, dbEvent, dbTestimonials, aboutImage, 
 
   const nav = (h: string) => `/${locale}${h}`;
 
+  // ─────────────────────────────────────────────────────────────────────────────
   return (
     <>
       <style>{CSS}</style>
@@ -941,7 +972,8 @@ export default function HomePage({ locale, dbEvent, dbTestimonials, aboutImage, 
             </button>
           </div>
 
-                    <div className="tm-dots">
+          {/* Dots */}
+          <div className="tm-dots">
             {testimonialsList.map((_, i) => (
               <button
                 key={i}

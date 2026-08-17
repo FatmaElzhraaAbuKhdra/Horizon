@@ -1,6 +1,8 @@
 ﻿export const locales = ["ar", "en"] as const;
 export type Locale = (typeof locales)[number];
 
+export const REGISTRATION_URL = "https://eportal.horizon.sch.sa/ERegistration/AddSuperior";
+
 export const t = {
   ar: {
     dir: "rtl" as const,
@@ -80,7 +82,7 @@ export const t = {
       p2: "نمتلك فرعين في قلب الرياض ونفخر بحصولنا على اعتمادات دولية من Cognia (AdvancED) وWASC وAIAA، مما يضمن لطلابنا تجربة تعليمية استثنائية تؤهلهم للمنافسة على المستوى العالمي.",
       features: [
         { icon: "📚", title: "منهج معتمد دولياً", desc: "اعتماد كامل من الجهات البريطانية" },
-        { icon: "👨‍🏫", title: "معلمون بريطانيون", desc: "كادر تدريسي مؤهل من بريطانيا" },
+        { icon: "👨‍🏫", title: "معلمون متميزون", desc: "كادر تدريسي متميز ومؤهل عالمياً" },
         { icon: "🔬", title: "مختبرات حديثة", desc: "تقنيات تعليمية متطورة" },
         { icon: "🌱", title: "تطوير الشخصية", desc: "برامج نمو شخصي وقيادي" },
       ],
@@ -271,7 +273,7 @@ export const t = {
       policies: "السياسات",
       links: {
         quick: ["الصفحة الرئيسية", "عن المدرسة", "أخبار المدرسة", "الأحداث", "فرص التوظيف"],
-        admission: ["التسجيل والقبول", "الرسوم الدراسية", "احجز جولة", "المنح الدراسية", "الأسئلة الشائعة"],
+        admission: ["التسجيل والقبول", "الرسوم الدراسية", "المنح الدراسية", "الأسئلة الشائعة"],
         policy: ["سياسة الخصوصية", "حماية الطلاب", "سياسة الحضور", "قواعد السلوك", "تواصل معنا"],
       },
       social: {
@@ -455,7 +457,7 @@ export const t = {
       p2: "With two campuses in Riyadh and international accreditations from Cognia (AdvancED), WASC and AIAA, we ensure our students receive an exceptional education that prepares them to compete on the global stage.",
       features: [
         { icon: "📚", title: "Internationally Accredited", desc: "Full UK accreditation" },
-        { icon: "👨‍🏫", title: "British-Qualified Teachers", desc: "Staff from UK and global institutions" },
+        { icon: "👨‍🏫", title: "Distinguished Teachers", desc: "Highly qualified, world-class teaching staff" },
         { icon: "🔬", title: "Modern Laboratories", desc: "Advanced educational technology" },
         { icon: "🌱", title: "Personal Development", desc: "Leadership and growth programmes" },
       ],
@@ -646,7 +648,7 @@ export const t = {
       policies: "Policies",
       links: {
         quick: ["Home", "About School", "School News", "Events", "Careers"],
-        admission: ["Admissions", "School Fees", "Book a Tour", "Scholarships", "FAQ"],
+        admission: ["Admissions", "School Fees", "Scholarships", "FAQ"],
         policy: ["Privacy Policy", "Safeguarding", "Attendance Policy", "Code of Conduct", "Contact Us"],
       },
       social: {

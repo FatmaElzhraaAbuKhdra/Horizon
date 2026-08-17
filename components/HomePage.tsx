@@ -1,9 +1,9 @@
 ﻿"use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { type Locale, t } from "@/lib/i18n";
+import { type Locale, t, REGISTRATION_URL } from "@/lib/i18n";
 import Navbar from "./Navbar";
-import { RegisterModal, TourModal, EventModal } from "./Modals";
+import { EventModal } from "./Modals";
 import { Toast, inputStyle, btnPrimary } from "./Modal";
 
 type ToastMsg = { title: string; desc: string; type: "success" | "error" } | null;
@@ -468,10 +468,9 @@ export default function HomePage({ locale, dbEvent, dbTestimonials, aboutImage, 
     : tr.testimonials.list;
 
   // ── Modals & Toast ──
-  const [showRegister, setShowRegister] = useState(false);
-  const [showTour,     setShowTour]     = useState(false);
   const [showEvent,    setShowEvent]    = useState(false);
   const [toast,        setToast]        = useState<ToastMsg>(null);
+  const goToRegister = () => window.open(REGISTRATION_URL, "_blank", "noopener,noreferrer");
 
   // ── Testimonials slider ──
   const [tmIndex, setTmIndex] = useState(0);
@@ -584,7 +583,7 @@ export default function HomePage({ locale, dbEvent, dbTestimonials, aboutImage, 
   return (
     <>
       <style>{CSS}</style>
-      <Navbar locale={locale} onRegister={() => setShowRegister(true)} onTour={() => setShowTour(true)} />
+      <Navbar locale={locale} onRegister={goToRegister} />
 
       {/* ════════════ HERO ════════════ */}
       <section ref={heroRef} style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "flex-end", background: C.dark, overflow: "hidden" }}>
@@ -636,14 +635,10 @@ export default function HomePage({ locale, dbEvent, dbTestimonials, aboutImage, 
 
           {/* CTAs */}
           <div className="hero-ctas" style={{ display: "flex", gap: "1rem", flexWrap: "wrap", marginBottom: "4rem" }}>
-            <button onClick={() => setShowRegister(true)} className="btn-glow"
-              style={{ ...btnPrimary, padding: "14px 32px", fontSize: 16, borderRadius: 12, boxShadow: "0 4px 20px rgba(179,0,196,.30)" }}>
+            <a href={REGISTRATION_URL} target="_blank" rel="noopener noreferrer" className="btn-glow"
+              style={{ ...btnPrimary, padding: "14px 32px", fontSize: 16, borderRadius: 12, boxShadow: "0 4px 20px rgba(179,0,196,.30)", textDecoration: "none", display: "inline-flex", alignItems: "center" }}>
               {tr.hero.btnRegister}
-            </button>
-            <button onClick={() => setShowTour(true)} className="btn-ghost-w"
-              style={{ padding: "14px 32px", borderRadius: 12, fontSize: 16, fontWeight: 600, cursor: "pointer", background: "rgba(255,255,255,.08)", border: "1.5px solid rgba(255,255,255,.40)", color: "#fff", fontFamily: "Cairo,sans-serif", backdropFilter: "blur(6px)" }}>
-              {tr.hero.btnTour}
-            </button>
+            </a>
           </div>
 
           {/* Stats bar */}
@@ -894,10 +889,10 @@ export default function HomePage({ locale, dbEvent, dbTestimonials, aboutImage, 
           </div>
 
           <div style={{ textAlign: "center", marginTop: "3.5rem" }}>
-            <button onClick={() => setShowRegister(true)} className="btn-glow"
-              style={{ ...btnPrimary, padding: "14px 40px", fontSize: 16, boxShadow: "0 4px 20px rgba(179,0,196,.30)" }}>
+            <a href={REGISTRATION_URL} target="_blank" rel="noopener noreferrer" className="btn-glow"
+              style={{ ...btnPrimary, padding: "14px 40px", fontSize: 16, boxShadow: "0 4px 20px rgba(179,0,196,.30)", textDecoration: "none", display: "inline-flex", alignItems: "center" }}>
               {tr.admissionsSteps.btnStart}
-            </button>
+            </a>
           </div>
         </div>
       </section>
@@ -1133,7 +1128,7 @@ export default function HomePage({ locale, dbEvent, dbTestimonials, aboutImage, 
 
           {[
             { title: tr.footer.quickLinks, links: tr.footer.links.quick,     hrefs: [nav(""), nav("/about"), nav("/news"), nav("/events"), nav("/about#jobs")] },
-            { title: tr.footer.admissions, links: tr.footer.links.admission,  hrefs: [nav("/admissions"), nav("/admissions#fees"), "#tour", nav("/admissions"), nav("/admissions#faq")] },
+            { title: tr.footer.admissions, links: tr.footer.links.admission,  hrefs: [nav("/admissions"), nav("/admissions#fees"), nav("/admissions"), nav("/admissions#faq")] },
             { title: tr.footer.policies,   links: tr.footer.links.policy,     hrefs: [nav("/about#privacy"), nav("/about#safeguarding"), nav("/about#attendance"), nav("/about#conduct"), nav("/contact")] },
           ].map((col, ci) => (
             <div key={ci}>
@@ -1141,8 +1136,7 @@ export default function HomePage({ locale, dbEvent, dbTestimonials, aboutImage, 
               <div style={{ display: "flex", flexDirection: "column", gap: ".8rem" }}>
                 {col.links.map((link, li) => (
                   <a key={li} className="footer-lnk"
-                    href={col.hrefs[li] === "#tour" ? "#" : col.hrefs[li]}
-                    onClick={col.hrefs[li] === "#tour" ? e => { e.preventDefault(); setShowTour(true); } : undefined}
+                    href={col.hrefs[li]}
                     style={{ fontSize: 13.5, color: "rgba(255,255,255,.52)", textDecoration: "none" }}>
                     {link}
                   </a>
@@ -1162,8 +1156,6 @@ export default function HomePage({ locale, dbEvent, dbTestimonials, aboutImage, 
       </footer>
 
       {/* Modals */}
-      <RegisterModal open={showRegister} onClose={() => setShowRegister(false)} locale={locale} />
-      <TourModal     open={showTour}     onClose={() => setShowTour(false)}     locale={locale} />
       <EventModal    open={showEvent}    onClose={() => setShowEvent(false)}    locale={locale} />
       <Toast message={toast} onDone={() => setToast(null)} />
       <ScrollTop />

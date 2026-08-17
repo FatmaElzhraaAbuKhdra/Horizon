@@ -1,8 +1,7 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import SubPage from "@/components/SubPage";
-import { type Locale, t } from "@/lib/i18n";
-import { RegisterModal, TourModal } from "@/components/Modals";
+import { type Locale, t, REGISTRATION_URL } from "@/lib/i18n";
 
 interface DbRow { id: string; group: string; term1: number; term2: number; term3: number; total: number; totalVat: number; }
 interface DbOneTime { id: string; labelAr: string; labelEn: string; amount: number; noteAr: string; noteEn: string; }
@@ -173,9 +172,6 @@ export default function FeesPage({ locale, dbRows, dbOneTime, dbSchedule, dbAddi
   const fp   = tr.feesPage;
   const isRtl = locale === "ar";
   const rootRef = useRef<HTMLDivElement>(null);
-
-  const [showReg,  setShowReg]  = useState(false);
-  const [showTour, setShowTour] = useState(false);
 
   const rows = dbRows
     ? dbRows.map(r => ({ group: r.group, term1: fmtNum(r.term1, locale), term2: fmtNum(r.term2, locale), term3: fmtNum(r.term3, locale), total: fmtNum(r.total, locale), totalVat: fmtNum(r.totalVat, locale) }))
@@ -361,21 +357,15 @@ export default function FeesPage({ locale, dbRows, dbOneTime, dbSchedule, dbAddi
                   : "Contact our admissions team for fee enquiries or to book a free school tour."}
               </p>
               <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
-                <button className="fees-cta-btn fees-cta-primary" onClick={() => setShowReg(true)}>
+                <a className="fees-cta-btn fees-cta-primary" href={REGISTRATION_URL} target="_blank" rel="noopener noreferrer">
                   🎓 {tr.nav.register}
-                </button>
-                <button className="fees-cta-btn fees-cta-outline" onClick={() => setShowTour(true)}>
-                  🏫 {tr.nav.tour}
-                </button>
+                </a>
               </div>
             </div>
           </section>
 
         </SubPage>
       </div>
-
-      <RegisterModal open={showReg}  onClose={() => setShowReg(false)}  locale={locale} />
-      <TourModal     open={showTour} onClose={() => setShowTour(false)} locale={locale} />
     </>
   );
 }

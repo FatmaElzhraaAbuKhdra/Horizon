@@ -1,10 +1,9 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 // No GSAP — uses native IntersectionObserver for scroll animations
 import Link from "next/link";
 import SubPage from "@/components/SubPage";
-import { type Locale, t } from "@/lib/i18n";
-import { RegisterModal, TourModal } from "@/components/Modals";
+import { type Locale, t, REGISTRATION_URL } from "@/lib/i18n";
 
 const C = {
   primary:     "#7A24B2",
@@ -269,9 +268,6 @@ export default function AdmissionsClient({ locale, dbSteps }: { locale: Locale; 
       }))
     : adm.journey.steps;
 
-  const [showReg,  setShowReg]  = useState(false);
-  const [showTour, setShowTour] = useState(false);
-
   useEffect(() => {
     if (!rootRef.current) return;
     const els = rootRef.current.querySelectorAll<HTMLElement>(
@@ -331,12 +327,9 @@ export default function AdmissionsClient({ locale, dbSteps }: { locale: Locale; 
                 </div>
               </div>
               <div style={{ display: "flex", gap: ".75rem", flexWrap: "wrap" }}>
-                <button className="adm-cta-btn adm-cta-primary" onClick={() => setShowReg(true)}>
+                <a className="adm-cta-btn adm-cta-primary" href={REGISTRATION_URL} target="_blank" rel="noopener noreferrer">
                   🎓 {tr.nav.register}
-                </button>
-                <button className="adm-cta-btn adm-cta-outline" onClick={() => setShowTour(true)}>
-                  🏫 {tr.nav.tour}
-                </button>
+                </a>
               </div>
             </div>
           </div>
@@ -496,21 +489,15 @@ export default function AdmissionsClient({ locale, dbSteps }: { locale: Locale; 
               }
             </p>
             <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
-              <button className="adm-cta-btn adm-cta-primary" onClick={() => setShowReg(true)}>
+              <a className="adm-cta-btn adm-cta-primary" href={REGISTRATION_URL} target="_blank" rel="noopener noreferrer">
                 🎓 {tr.admissionsSteps.btnStart}
-              </button>
-              <button className="adm-cta-btn adm-cta-outline" onClick={() => setShowTour(true)}>
-                🏫 {tr.nav.tour}
-              </button>
+              </a>
             </div>
           </div>
         </section>
 
       </SubPage>
       </div>
-
-      <RegisterModal open={showReg}  onClose={() => setShowReg(false)}  locale={locale} />
-      <TourModal     open={showTour} onClose={() => setShowTour(false)} locale={locale} />
     </>
   );
 }

@@ -6,10 +6,9 @@ import { type Locale, t } from "@/lib/i18n";
 interface NavbarProps {
   locale: Locale;
   onRegister: () => void;
-  onTour: () => void;
 }
 
-export default function Navbar({ locale, onRegister, onTour }: NavbarProps) {
+export default function Navbar({ locale, onRegister }: NavbarProps) {
   const tr = t[locale];
   const other = locale === "ar" ? "en" : "ar";
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -32,7 +31,6 @@ export default function Navbar({ locale, onRegister, onTour }: NavbarProps) {
       key: "admissions", label: tr.nav.admissionsGroup, children: [
         { label: tr.nav.admissions, href: nav("/admissions") },
         { label: tr.nav.fees, href: nav("/fees") },
-        { label: tr.nav.tour, href: "#", action: onTour },
       ],
     },
     {
@@ -92,7 +90,6 @@ export default function Navbar({ locale, onRegister, onTour }: NavbarProps) {
         <span className="tb-phone">📞 +920015440</span>
         <div className="tb-actions" style={{ marginInlineStart: "auto", display: "flex", gap: "1.5rem" }}>
           <button onClick={onRegister} style={{ background: "none", border: "none", color: "rgba(255,255,255,.8)", cursor: "pointer", fontSize: 13 }}>📋 {tr.nav.register}</button>
-          <button onClick={onTour} style={{ background: "none", border: "none", color: "rgba(255,255,255,.8)", cursor: "pointer", fontSize: 13 }}>🏫 {tr.nav.tour}</button>
         </div>
       </div>
 
@@ -127,13 +124,9 @@ export default function Navbar({ locale, onRegister, onTour }: NavbarProps) {
                       style={{ position: "absolute", top: "100%", insetInlineStart: 0, paddingTop: 6, zIndex: 100 }}>
                     <div style={{ background: "#fff", border: "1px solid #E8E0F5", borderRadius: 12, minWidth: 200, padding: 8, boxShadow: "0 8px 32px rgba(0,0,0,.12)" }}>
                       {item.children.map((c, i) => (
-                        c.action
-                          ? <button key={i} onClick={c.action} style={{ display: "block", width: "100%", textAlign: locale === "ar" ? "right" : "left", padding: "9px 14px", fontSize: 13.5, color: "#1A1A1A", border: "none", background: "none", cursor: "pointer", borderRadius: 8, fontFamily: "Cairo, sans-serif" }}
-                            onMouseEnter={e => (e.currentTarget.style.background = "#FAF7FF")}
-                            onMouseLeave={e => (e.currentTarget.style.background = "none")}>{c.label}</button>
-                          : <Link key={i} href={c.href} style={{ display: "block", padding: "9px 14px", fontSize: 13.5, color: "#1A1A1A", textDecoration: "none", borderRadius: 8 }}
-                            onMouseEnter={e => (e.currentTarget.style.background = "#FAF7FF")}
-                            onMouseLeave={e => (e.currentTarget.style.background = "none")}>{c.label}</Link>
+                        <Link key={i} href={c.href} style={{ display: "block", padding: "9px 14px", fontSize: 13.5, color: "#1A1A1A", textDecoration: "none", borderRadius: 8 }}
+                          onMouseEnter={e => (e.currentTarget.style.background = "#FAF7FF")}
+                          onMouseLeave={e => (e.currentTarget.style.background = "none")}>{c.label}</Link>
                       ))}
                     </div>
                     </div>
@@ -152,11 +145,6 @@ export default function Navbar({ locale, onRegister, onTour }: NavbarProps) {
 
         {/* CTA Buttons */}
         <div className="nav-cta-desk" style={{ display: "flex", gap: 8, flexShrink: 0 }}>
-          <button onClick={onTour} style={{ padding: "9px 18px", borderRadius: 10, fontSize: 13.5, fontWeight: 600, cursor: "pointer", background: "transparent", border: "1.5px solid #7A24B2", color: "#7A24B2", fontFamily: "Cairo, sans-serif", transition: "all .2s" }}
-            onMouseEnter={e => { e.currentTarget.style.background = "#7A24B2"; e.currentTarget.style.color = "#fff"; }}
-            onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#7A24B2"; }}>
-            {tr.nav.tour}
-          </button>
           <button onClick={onRegister} style={{ padding: "9px 18px", borderRadius: 10, fontSize: 13.5, fontWeight: 600, cursor: "pointer", background: "#B300C4", border: "none", color: "#fff", fontFamily: "Cairo, sans-serif", transition: "all .2s" }}
             onMouseEnter={e => (e.currentTarget.style.background = "#8800CC")}
             onMouseLeave={e => (e.currentTarget.style.background = "#B300C4")}>
@@ -185,9 +173,7 @@ export default function Navbar({ locale, onRegister, onTour }: NavbarProps) {
                       </div>
                       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.35rem" }}>
                         {item.children.map((c, i) =>
-                          c.action
-                            ? <button key={i} onClick={() => { c.action!(); setMobileOpen(false); }} style={{ textAlign: locale === "ar" ? "right" : "left", padding: "8px 10px", fontSize: 13, fontWeight: 500, background: "#FAF7FF", border: "1px solid #E8E0F5", borderRadius: 8, cursor: "pointer", fontFamily: "Cairo, sans-serif", color: "#1A1A1A", lineHeight: 1.4 }}>{c.label}</button>
-                            : <Link key={i} href={c.href} onClick={() => setMobileOpen(false)} style={{ display: "block", padding: "8px 10px", fontSize: 13, fontWeight: 500, color: "#1A1A1A", textDecoration: "none", background: "#FAF7FF", border: "1px solid #E8E0F5", borderRadius: 8, lineHeight: 1.4 }}>{c.label}</Link>
+                          <Link key={i} href={c.href} onClick={() => setMobileOpen(false)} style={{ display: "block", padding: "8px 10px", fontSize: 13, fontWeight: 500, color: "#1A1A1A", textDecoration: "none", background: "#FAF7FF", border: "1px solid #E8E0F5", borderRadius: 8, lineHeight: 1.4 }}>{c.label}</Link>
                         )}
                       </div>
                     </>
@@ -197,7 +183,6 @@ export default function Navbar({ locale, onRegister, onTour }: NavbarProps) {
                 </div>
               ))}
               <div style={{ marginTop: "0.5rem", display: "flex", flexDirection: "column", gap: "0.6rem" }}>
-                <button onClick={() => { onTour(); setMobileOpen(false); }} style={{ padding: "11px", borderRadius: 10, fontSize: 13.5, fontWeight: 600, cursor: "pointer", background: "transparent", border: "1.5px solid #7A24B2", color: "#7A24B2", fontFamily: "Cairo, sans-serif" }}>{tr.nav.tour}</button>
                 <button onClick={() => { onRegister(); setMobileOpen(false); }} style={{ padding: "11px", borderRadius: 10, fontSize: 13.5, fontWeight: 600, cursor: "pointer", background: "#B300C4", border: "none", color: "#fff", fontFamily: "Cairo, sans-serif" }}>{tr.nav.register}</button>
                 <Link href={`/${other}`} style={{ textAlign: "center", padding: "9px", borderRadius: 10, fontSize: 13.5, color: "#7A24B2", textDecoration: "none", border: "1px solid #E8E0F5" }}>{tr.switchLang}</Link>
               </div>

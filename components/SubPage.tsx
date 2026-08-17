@@ -1,9 +1,9 @@
 ﻿"use client";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { type Locale, t } from "@/lib/i18n";
+import { type Locale, t, REGISTRATION_URL } from "@/lib/i18n";
 import Navbar from "./Navbar";
-import { RegisterModal, TourModal, EventModal } from "./Modals";
+import { EventModal } from "./Modals";
 
 const PAGE_TRANSITION = `
   @keyframes pageIn {
@@ -22,8 +22,6 @@ export default function SubPage({
   heroImage?: string | null;
   children: React.ReactNode;
 }) {
-  const [showRegister, setShowRegister] = useState(false);
-  const [showTour,     setShowTour]     = useState(false);
   const [showEvent,    setShowEvent]    = useState(false);
   const [entered, setEntered] = useState(false);
   const mainRef = useRef<HTMLElement>(null);
@@ -63,7 +61,7 @@ export default function SubPage({
   return (
     <>
       <style>{PAGE_TRANSITION}</style>
-      <Navbar locale={locale} onRegister={() => setShowRegister(true)} onTour={() => setShowTour(true)} />
+      <Navbar locale={locale} onRegister={() => window.open(REGISTRATION_URL, "_blank", "noopener,noreferrer")} />
 
       {/* PAGE HERO */}
       <div style={{ background: "linear-gradient(135deg, #2D0864 0%, #7A24B2 60%, #B300C4 100%)", padding: "3.5rem 2rem", textAlign: "center", position: "relative", overflow: "hidden" }}>
@@ -102,8 +100,6 @@ export default function SubPage({
         </Link>
       </footer>
 
-      <RegisterModal open={showRegister} onClose={() => setShowRegister(false)} locale={locale} />
-      <TourModal     open={showTour}     onClose={() => setShowTour(false)}     locale={locale} />
       <EventModal    open={showEvent}    onClose={() => setShowEvent(false)}    locale={locale} />
     </>
   );

@@ -33,8 +33,8 @@ export default async function KS2Page({ params }: { params: Promise<{ locale: st
   const body = (lang === "ar" ? row?.valAr : row?.valEn) || (isRtl ? D_AR : D_EN);
 
   const subjects = isRtl
-    ? ["اللغة الإنجليزية", "الرياضيات", "العلوم", "الإنسانيات العالمية (التاريخ والجغرافيا)", "اللغة العربية", "اللغة الفرنسية", "الحوسبة", "الفنون والتصميم", "الموسيقى", "التربية البدنية", "التربية الصحية والشخصية (PSHE)"]
-    : ["English", "Mathematics", "Science", "Global Humanities (History & Geography)", "Arabic Language", "French", "Computing", "Arts & Design", "Music", "Physical Education", "PSHE & Character Development"];
+    ? ["اللغة الإنجليزية", "الرياضيات", "العلوم", "الإنسانيات العالمية (التاريخ والجغرافيا)", "اللغة العربية", "اللغة الفرنسية", "الحوسبة", "الفنون والتصميم", "التربية البدنية", "التربية الصحية والشخصية (PSHE)"]
+    : ["English", "Mathematics", "Science", "Global Humanities (History & Geography)", "Arabic Language", "French", "Computing", "Arts & Design", "Physical Education", "PSHE & Character Development"];
 
   return (
     <SubPage locale={locale} title={isRtl ? "المرحلة الثانية (KS2)" : "Key Stage 2 (KS2)"} subtitle={isRtl ? "٧ – ١١ سنة" : "Ages 7–11"} heroImage={heroImg}>

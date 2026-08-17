@@ -33,8 +33,8 @@ export default async function KS1Page({ params }: { params: Promise<{ locale: st
   const body = (lang === "ar" ? row?.valAr : row?.valEn) || (isRtl ? D_AR : D_EN);
 
   const subjects = isRtl
-    ? ["اللغة الإنجليزية", "الرياضيات", "العلوم", "اللغة العربية", "الحوسبة", "الفنون والتصميم", "الموسيقى", "التربية البدنية", "التربية الصحية والاجتماعية (PSHE)"]
-    : ["English", "Mathematics", "Science", "Arabic Language", "Computing", "Arts & Design", "Music", "Physical Education", "PSHE & Wellbeing"];
+    ? ["اللغة الإنجليزية", "الرياضيات", "العلوم", "اللغة العربية", "الحوسبة", "الفنون والتصميم", "التربية البدنية", "التربية الصحية والاجتماعية (PSHE)"]
+    : ["English", "Mathematics", "Science", "Arabic Language", "Computing", "Arts & Design","Physical Education", "PSHE & Wellbeing"];
 
   return (
     <SubPage locale={locale} title={isRtl ? "المرحلة الأولى (KS1)" : "Key Stage 1 (KS1)"} subtitle={isRtl ? "٥ – ٧ سنوات" : "Ages 5–7"} heroImage={heroImg}>

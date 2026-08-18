@@ -148,6 +148,19 @@ export const IMAGE_SLOT_GROUPS: SlotGroup[] = [
     ],
   },
   {
+    page: "صفحة التعميم",
+    icon: "📢",
+    slots: [
+      {
+        key:   "announcements",
+        label: "صور تعاميم",
+        desc:  "الصور المرفقة مع كل تعميم — تُدار أيضاً من صفحة «تعاميم» في لوحة الإدارة",
+        max:   500,
+        hint:  "أفضل مقاس: 1200×800 · أفقي",
+      },
+    ],
+  },
+  {
     page: "عام",
     icon: "⚙️",
     slots: [

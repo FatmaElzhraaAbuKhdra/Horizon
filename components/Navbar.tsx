@@ -66,6 +66,7 @@ export default function Navbar({ locale, onRegister }: NavbarProps) {
       ],
     },
     { key: "news", label: tr.nav.news, href: nav("/news") },
+    { key: "announcements", label: tr.nav.announcements, href: nav("/announcements") },
     { key: "jobs", label: tr.nav.jobs, href: nav("/careers") },
     { key: "contact", label: tr.nav.contact, href: nav("/contact") },
     {

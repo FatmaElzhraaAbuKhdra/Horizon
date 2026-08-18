@@ -226,6 +226,19 @@ model NewsItem {
   createdAt DateTime @default(now())
 }
 
+model Announcement {
+  id        String   @id @default(cuid())
+  titleAr   String
+  titleEn   String
+  bodyAr    String
+  bodyEn    String
+  imageUrl  String   @default("")
+  date      String
+  active    Boolean  @default(true)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
 model PendingTestimonial {
   id        String   @id @default(cuid())
   textAr    String

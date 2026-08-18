@@ -28,6 +28,7 @@ const CMS_ITEMS = [
   { href: "/admin/jobs",            label: "فرص التوظيف",          icon: "💼" },
   { href: "/admin/aspa",            label: "أعضاء ASPA",           icon: "👥" },
   { href: "/admin/news",             label: "الأخبار والمستجدات",   icon: "📰" },
+  { href: "/admin/announcements",   label: "تعاميم",               icon: "📢" },
   { href: "/admin/settings",        label: "إعدادات الموقع",       icon: "⚙️" },
 ];
 

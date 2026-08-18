@@ -33,6 +33,12 @@ export const getNews = unstable_cache(
   { revalidate: HOUR, tags: ["news"] }
 );
 
+export const getAnnouncements = unstable_cache(
+  () => prisma.announcement.findMany({ where: { active: true }, orderBy: { sortOrder: "asc" } }).catch(() => []),
+  ["announcements"],
+  { revalidate: HOUR, tags: ["announcements"] }
+);
+
 export const getFees = unstable_cache(
   async () => {
     const [rows, oneTime, schedule, additional] = await Promise.all([

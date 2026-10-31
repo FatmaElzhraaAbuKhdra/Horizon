@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 // Set to false (or delete this file) once the site is ready to go live again.
-const MAINTENANCE_MODE = false;
+const MAINTENANCE_MODE = true;
 
 export function middleware(req: NextRequest) {
   if (!MAINTENANCE_MODE) return NextResponse.next();

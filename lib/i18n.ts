@@ -65,7 +65,7 @@ export const t = {
     },
 
     hero: {
-      badge: "أمريكي وبريطاني",
+      badge: "مدارس دولية رائدة تجمع المنهجين الأمريكي والبريطاني في قلب الرياض",
       title1: "مدارس الأفق العالمية،",
       title2: "حيث يلتقي",
       titleHighlight: "التميز",
@@ -447,7 +447,7 @@ export const t = {
     },
 
     hero: {
-      badge: "American & British",
+      badge: "Leading international schools combining American & British curricula in the heart of Riyadh",
       title1: "Horizon International School,",
       title2: "Where",
       titleHighlight: "Excellence",

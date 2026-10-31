@@ -1,6 +1,18 @@
 ﻿export const locales = ["ar", "en"] as const;
 export type Locale = (typeof locales)[number];
 
+/** Current + next academic year pairs, rolling over each July (e.g. 2026/2027, 2027/2028). */
+export function academicYears(): [string, string] {
+  const d = new Date();
+  const s = d.getMonth() >= 6 ? d.getFullYear() : d.getFullYear() - 1;
+  return [`${s}/${s + 1}`, `${s + 1}/${s + 2}`];
+}
+const toAr = (v: string) => v.replace(/\d/g, (c) => "٠١٢٣٤٥٦٧٨٩"[+c]);
+
+export const PORTAL_URL = "https://lms.horizon.sch.sa";
+export const PAYMENT_URL = "https://eportal.horizon.sch.sa";
+export const PAYMENT_PHONE = "920015440";
+
 export const REGISTRATION_URL = "https://eportal.horizon.sch.sa/ERegistration/AddSuperior";
 
 export const t = {
@@ -53,12 +65,12 @@ export const t = {
     },
 
     hero: {
-      badge: "مدارس دولية رائدة تجمع المنهجين البريطاني والأمريكي في قلب الرياض",
-      title1: "التعليم في الأفق العالمية،",
+      badge: "أمريكي وبريطاني",
+      title1: "مدارس الأفق العالمية،",
       title2: "حيث يلتقي",
       titleHighlight: "التميز",
       title3: "بالمستقبل",
-      sub: "مدارس الأفق العالمية — تجربة تعليمية دولية متكاملة تجمع المناهج البريطانية والأمريكية مع الهوية العربية الإسلامية، للأعمار من ٣ إلى ١٨ سنة في الرياض.",
+      sub: "لجميع المراحل الدراسية من الروضة حتى الصف الثاني عشر (K-12)",
       btnRegister: "ابدأ رحلة التسجيل",
       btnTour: "احجز جولة مجانية",
       stat1Num: "٢٦", stat1Label: "عاماً من التميز",
@@ -68,7 +80,7 @@ export const t = {
     },
 
     features: [
-      { icon: "🎓", title: "منهج بريطاني وأمريكي", desc: "مناهج دولية معتمدة من Cognia وWASC وAIAA" },
+      { icon: "🎓", title: "دبلومة أمريكية و IGCSE بريطانية", desc: "معتمدة من Cognia وCambridge وEdexcel" },
       { icon: "🌍", title: "بيئة دولية متنوعة", desc: "طلاب من جنسيات عالمية متعددة" },
       { icon: "🏆", title: "تميز رياضي وفني", desc: "برامج متكاملة للفنون والرياضة" },
       { icon: "🛡️", title: "بيئة آمنة ومحفوزة", desc: "سياسات رعاية طلابية شاملة" },
@@ -80,7 +92,7 @@ export const t = {
       badge: "١٩٩٩",
       badgeLabel: "سنة التأسيس",
       p1: "مدارس الأفق العالمية مؤسسة تعليمية رائدة تأسست عام ١٩٩٩ في الرياض، تقدم تجربة تعليمية دولية متكاملة تجمع بين المنهجين البريطاني والأمريكي مع صون الهوية العربية الإسلامية الأصيلة.",
-      p2: "نمتلك فرعين في قلب الرياض ونفخر بحصولنا على اعتمادات دولية من Cognia (AdvancED) وWASC وAIAA، مما يضمن لطلابنا تجربة تعليمية استثنائية تؤهلهم للمنافسة على المستوى العالمي.",
+      p2: "نمتلك فرعين في قلب الرياض ونفخر بحصولنا على اعتمادات دولية من Cognia (AdvancED) وAIAA، مما يضمن لطلابنا تجربة تعليمية استثنائية تؤهلهم للمنافسة على المستوى العالمي.",
       features: [
         { icon: "📚", title: "منهج معتمد دولياً", desc: "اعتماد كامل من الجهات البريطانية" },
         { icon: "👨‍🏫", title: "معلمون متميزون", desc: "كادر تدريسي متميز ومؤهل عالمياً" },
@@ -93,13 +105,14 @@ export const t = {
     programs: {
       tag: "برامجنا الأكاديمية",
       title: "تعليم مصمم لكل مرحلة عمرية",
-      desc: "مناهج بريطانية متكاملة تراعي احتياجات كل مرحلة من مراحل النمو المعرفي والاجتماعي.",
+      desc: "مناهج أمريكية وبريطانية متكاملة تراعي احتياجات كل مرحلة من مراحل النمو المعرفي والاجتماعي.",
       list: [
-        { icon: "🌟", age: "٣ — ٥ سنوات", title: "ما قبل المدرسة", desc: "بيئة تعلم حيوية تُنمي فضول الطفل ومهاراته الاجتماعية.", tags: ["اللعب التعليمي", "الفنون", "اللغة"], color: "teal" },
+        { icon: "🌟", age: "٣ — ٥ سنوات", title: "رياض الأطفال", desc: "بيئة تعلم حيوية تُنمي فضول الطفل ومهاراته الاجتماعية.", tags: ["اللعب التعليمي", "الفنون", "اللغة"], color: "teal" },
         { icon: "📖", age: "٥ — ١١ سنة", title: "المرحلة الابتدائية", desc: "منهج شامل يُرسي قواعد اللغة والعلوم والرياضيات.", tags: ["العلوم", "الرياضيات", "الإنجليزية"], color: "gold" },
-        { icon: "🚀", age: "١١ — ١٤ سنة", title: "المرحلة الإعدادية", desc: "تعليم معمق يُعد الطالب للمراحل المتقدمة.", tags: ["العلوم المتقدمة", "التاريخ", "البرمجة"], color: "rose" },
+        { icon: "🚀", age: "١١ — ١٤ سنة", title: "المرحلة المتوسطة", desc: "تعليم معمق يُعد الطالب للمراحل المتقدمة.", tags: ["العلوم المتقدمة", "التاريخ", "البرمجة"], color: "rose" },
         { icon: "🎓", age: "١٤+ سنة", title: "المرحلة الثانوية", desc: "تعليم متميز يُعد الطالب للجامعة والمستقبل المهني.", tags: ["العلوم المتقدمة", "الرياضيات العليا", "التوجيه الجامعي"], color: "purple" },
-        { icon: "🎭", age: "جميع المراحل", title: "الفنون والرياضة", desc: "برامج متكاملة في المسرح والموسيقى والأنشطة الرياضية.", tags: ["المسرح", "الموسيقى", "كرة القدم"], color: "blue" },
+        { icon: "🕌", age: "جميع المراحل", title: "المواد العربية والهوية", desc: "مواد اللغة العربية والتربية الإسلامية والاجتماعيات التي تعزز الهوية العربية الإسلامية.", tags: ["اللغة العربية", "التربية الإسلامية", "الهوية"], color: "teal" },
+        { icon: "🎭", age: "O-Level & A-Level", title: "مدرسة IGCSE البريطانية", desc: "مسار بريطاني يؤهل الطالب لشهادات O'Level وA-Level مع برامج متكاملة في الفنون والرياضة.", tags: ["O'Level", "A-Level", "الفنون والرياضة"], color: "blue" },
       ],
       learnMore: "اعرف المزيد",
     },
@@ -123,34 +136,36 @@ export const t = {
       desc: "عملية تسجيل واضحة وسلسة تضمن انضمام طلابنا بأفضل تجربة ممكنة.",
       steps: [
         { num: "١", title: "تقديم الطلب", desc: "أكملوا نموذج التسجيل الأولي عبر الموقع أو بزيارة المدرسة." },
-        { num: "٢", title: "جولة مدرسية", desc: "احجزوا جولة لاستكشاف المرافق والتعرف على الكادر." },
-        { num: "٣", title: "تقييم القبول", desc: "يمر الطالب بتقييم ودي يُحدد المستوى الأنسب." },
-        { num: "٤", title: "القبول الرسمي", desc: "استلام خطاب القبول وإتمام الإجراءات والرسوم." },
+        { num: "٢", title: "اختبار تحديد المستوى", desc: "يخضع الطالب لاختبار تحديد مستوى لتحديد الصف الأنسب." },
+        { num: "٣", title: "التواصل من المدرسة", desc: "سيتواصل معكم مكتب التسجيل لاستكمال إجراءات التسجيل." },
       ],
       btnStart: "ابدأ رحلة التسجيل الآن",
     },
 
     admissionsPage: {
-      intro: "مدارس الأفق العالمية مدرسة بريطانية مستقلة بفرعين في الرياض: حي الورود (شمال الرياض) وظهرة لبن، تقدم تعليماً دقيقاً مبنياً على معايير أكاديمية عالية مع رعاية شاملة لكل طالب. نستقبل حالياً طلبات القبول للعام الدراسي ٢٠٢٥/٢٠٢٦ و٢٠٢٦/٢٠٢٧.",
+      get intro() {
+        const [a, b] = academicYears();
+        return `مدارس الأفق العالمية مدرسة أمريكية وبريطانية بفرعين في الرياض: حي الورود (شمال الرياض) وظهرة لبن، تقدم تعليماً دقيقاً مبنياً على معايير أكاديمية عالية مع رعاية شاملة لكل طالب. نستقبل حالياً طلبات القبول للعام الدراسي ${toAr(a)} و${toAr(b)}.`;
+      },
       registrarEmail: "Info@horizon.sch.sa",
       registrarPhone: "+920015440",
       registrarExt: "",
       stages: {
         title: "المراحل الأكاديمية المتاحة",
         list: [
-          { stage: "مرحلة التأسيس المبكر (EYFS)", age: "٣ – ٥ سنوات", icon: "🌟" },
-          { stage: "المرحلة الأولى (KS1)", age: "من ٥ سنوات", icon: "📖" },
-          { stage: "المرحلة الثانية (KS2)", age: "من ٧ سنوات", icon: "🔬" },
-          { stage: "المرحلة الثالثة (KS3)", age: "من ١١ سنة", icon: "🚀" },
+          { stage: "رياض الأطفال", age: "٣ – ٥ سنوات", icon: "🌟" },
+          { stage: "المرحلة الابتدائية", age: "٥ – ١١ سنة", icon: "📖" },
+          { stage: "المرحلة المتوسطة", age: "١١ – ١٤ سنة", icon: "🚀" },
+          { stage: "المرحلة الثانوية", age: "١٤+ سنة", icon: "🎓" },
+          { stage: "مدرسة IGCSE البريطانية (O'Level & A-Level)", age: "جميع المراحل", icon: "🎭" },
         ],
       },
       journey: {
-        title: "رحلة القبول خطوة بخطوة",
+        title: "مراحل التسجيل",
         steps: [
-          { num: "١", title: "الاستفسار", color: "#7A24B2", items: ["استلام حزمة المعلومات الكاملة", "نظرة عامة على المنهج البريطاني", "هيكل الرسوم الدراسية", "دعوة لجولة مدرسية"] },
-          { num: "٢", title: "الجولة المدرسية", color: "#7C3AED", items: ["مراقبة الفصول والدروس المتخصصة", "استكشاف المرافق وبيئات التعلم", "لقاء فريق الرعاية الطلابية", "لقاء أعضاء القيادة"] },
-          { num: "٣", title: "التقييم والتسجيل", color: "#B300C4", items: ["تقييمات مناسبة لعمر الطالب", "مراجعة التقارير المدرسية السابقة", "مقابلات غير رسمية عند الحاجة"] },
-          { num: "٤", title: "العرض والقبول الرسمي", color: "#DC2626", items: ["خطاب العرض الرسمي", "وثائق القبول والتأكيد", "تعليمات الدفع وإتمام الإجراءات"] },
+          { num: "١", title: "تقديم الطلب", color: "#7A24B2", items: ["تعبئة نموذج التسجيل الإلكتروني", "إدخال بيانات الطالب وولي الأمر", "رفع الأوراق المطلوبة"] },
+          { num: "٢", title: "اختبار تحديد المستوى", color: "#7C3AED", items: ["اختبار تحديد مستوى مناسب لمرحلة الطالب", "تحديد الصف الدراسي الأنسب"] },
+          { num: "٣", title: "التواصل من المدرسة", color: "#B300C4", items: ["سيتواصل معكم مكتب التسجيل لاستكمال إجراءات التسجيل"] },
         ],
       },
       documents: {
@@ -164,7 +179,7 @@ export const t = {
         items: [
           "اسم ولي الأمر وبيانات التواصل",
           "اسم الطفل وتاريخ الميلاد",
-          "العام الدراسي المطلوب (٢٠٢٥/٢٠٢٦ أو ٢٠٢٦/٢٠٢٧)",
+          "العام الدراسي المطلوب",
           "كيف تعرفت على مدارس الأفق العالمية",
         ],
       },
@@ -180,7 +195,7 @@ export const t = {
       },
       feesNote: "تواصل معنا للاستفسار عن الرسوم الدراسية",
       contactRegistrar: "تواصل مع مسؤول القبول",
-      acceptedYears: "العام الدراسي ٢٠٢٥/٢٠٢٦ و٢٠٢٦/٢٠٢٧",
+      get acceptedYears() { const [a, b] = academicYears(); return `العام الدراسي ${toAr(a)} و${toAr(b)}`; },
     },
 
     feesPage: {
@@ -283,6 +298,10 @@ export const t = {
         snapchat: "https://www.snapchat.com/add/horizonschool3",
         instaWoroud: "https://www.instagram.com/horizonsch?igsh=MXkxdjhoMGpjN3c4Zg==",
         instaLaban: "https://www.instagram.com/horizon_sch?igsh=MW03YmUxZXRjMWRreg==",
+        tiktok: "https://www.tiktok.com/@horizon.internati3",
+        youtube: "https://www.youtube.com/@HorizonSchSa",
+        tiktokLabel: "تيك توك",
+        youtubeLabel: "يوتيوب",
         fbWoroudLabel: "فيسبوك الورود",
         fbLabanLabel: "فيسبوك لبن",
         snapchatLabel: "سناب شات",
@@ -302,7 +321,7 @@ export const t = {
         level: "المرحلة الدراسية *",
         levels: ["مرحلة ما قبل المدرسة (٣-٥ سنوات)", "المرحلة الابتدائية (٥-١١ سنة)", "المرحلة الإعدادية (١١-١٤ سنة)"],
         year: "العام الدراسي",
-        years: ["٢٠٢٥/٢٠٢٦", "٢٠٢٦/٢٠٢٧"],
+        get years() { return academicYears().map(toAr); },
         parentName: "اسم ولي الأمر *", phone: "رقم الجوال *",
         email: "البريد الإلكتروني *", nationality: "الجنسية",
         nationalities: ["سعودي", "بريطاني", "أمريكي", "أخرى"],
@@ -352,12 +371,12 @@ export const t = {
       woroud: {
         name: "فرع الورود",
         desc: "المقر الرئيسي — حي الورود، الرياض",
-        portal: "https://horizon.sch.sa/grand/shareedulogin/",
+        portal: PORTAL_URL,
       },
       laban: {
         name: "فرع ظهرة لبن",
         desc: "حي ظهرة لبن، غرب الرياض",
-        portal: "https://laban.horizon.sch.sa/grand/shareedulogin/",
+        portal: PORTAL_URL,
       },
     },
 
@@ -366,7 +385,6 @@ export const t = {
       title: "معتمدون من أعرق الجهات الأكاديمية",
       items: [
         { name: "Cognia (AdvancED)", icon: "🌐" },
-        { name: "WASC", icon: "🎓" },
         { name: "AIAA", icon: "🏅" },
       ],
     },
@@ -429,12 +447,12 @@ export const t = {
     },
 
     hero: {
-      badge: "Leading international schools combining British & American curricula in the heart of Riyadh",
-      title1: "Education at Horizon International,",
+      badge: "American & British",
+      title1: "Horizon International School,",
       title2: "Where",
       titleHighlight: "Excellence",
-      title3: "Meets the Future",
-      sub: "Horizon International Schools — a world-class educational experience combining British & American curricula with Arab Islamic identity, for ages 3 to 18 in Riyadh.",
+      title3: "Meet The Future",
+      sub: "For grade level K-12",
       btnRegister: "Start Your Application",
       btnTour: "Book a Free Tour",
       stat1Num: "26", stat1Label: "Years of Excellence",
@@ -444,7 +462,7 @@ export const t = {
     },
 
     features: [
-      { icon: "🎓", title: "British & American Curricula", desc: "Accredited by Cognia, WASC & AIAA" },
+      { icon: "🎓", title: "American Diploma & British IGCSE School", desc: "Accredited by Cognia, Cambridge and Edexcel" },
       { icon: "🌍", title: "International Community", desc: "Students from diverse nationalities" },
       { icon: "🏆", title: "Sport & Arts Excellence", desc: "Comprehensive arts & sports programmes" },
       { icon: "🛡️", title: "Safe & Nurturing", desc: "Comprehensive student safeguarding" },
@@ -456,7 +474,7 @@ export const t = {
       badge: "1999",
       badgeLabel: "Year Founded",
       p1: "Horizon International Schools is a leading educational institution founded in Riyadh in 1999, offering an integrated international experience that combines British and American curricula while preserving authentic Arab Islamic identity.",
-      p2: "With two campuses in Riyadh and international accreditations from Cognia (AdvancED), WASC and AIAA, we ensure our students receive an exceptional education that prepares them to compete on the global stage.",
+      p2: "With two campuses in Riyadh and international accreditations from Cognia (AdvancED) and AIAA, we ensure our students receive an exceptional education that prepares them to compete on the global stage.",
       features: [
         { icon: "📚", title: "Internationally Accredited", desc: "Full UK accreditation" },
         { icon: "👨‍🏫", title: "Distinguished Teachers", desc: "Highly qualified, world-class teaching staff" },
@@ -469,13 +487,14 @@ export const t = {
     programs: {
       tag: "Academic Programmes",
       title: "Education Tailored to Every Age",
-      desc: "Integrated British curricula designed for each stage of cognitive and social development.",
+      desc: "Integrated American & British curricula designed for each stage of cognitive and social development.",
       list: [
-        { icon: "🌟", age: "Ages 3 — 5", title: "Pre-School", desc: "A vibrant learning environment that nurtures curiosity and social skills.", tags: ["Play-Based Learning", "Arts", "Language"], color: "teal" },
+        { icon: "🌟", age: "Ages 3 — 5", title: "Kindergarten", desc: "A vibrant learning environment that nurtures curiosity and social skills.", tags: ["Play-Based Learning", "Arts", "Language"], color: "teal" },
         { icon: "📖", age: "Ages 5 — 11", title: "Primary", desc: "A comprehensive curriculum establishing foundations in language, science and maths.", tags: ["Science", "Maths", "English"], color: "gold" },
-        { icon: "🚀", age: "Ages 11 — 14", title: "Prep", desc: "In-depth education preparing students for advanced stages.", tags: ["Advanced Science", "History", "Coding"], color: "rose" },
-        { icon: "🎓", age: "Ages 14+", title: "Senior School", desc: "Outstanding education preparing students for university and professional life.", tags: ["Advanced Sciences", "Higher Maths", "University Guidance"], color: "purple" },
-        { icon: "🎭", age: "All Ages", title: "Arts & Sport", desc: "Integrated programmes in drama, music, and diverse sports activities.", tags: ["Drama", "Music", "Football"], color: "blue" },
+        { icon: "🚀", age: "Ages 11 — 14", title: "Middle School", desc: "In-depth education preparing students for advanced stages.", tags: ["Advanced Science", "History", "Coding"], color: "rose" },
+        { icon: "🎓", age: "Ages 14+", title: "High School", desc: "Outstanding education preparing students for university and professional life.", tags: ["Advanced Sciences", "Higher Maths", "University Guidance"], color: "purple" },
+        { icon: "🕌", age: "All Ages", title: "Arabic & Identity Materials", desc: "Arabic language, Islamic studies and social studies that strengthen Arab Islamic identity.", tags: ["Arabic", "Islamic Studies", "Identity"], color: "teal" },
+        { icon: "🎭", age: "O-Level & A-Level", title: "British IGCSE School", desc: "A British pathway leading to O'Level and A-Level qualifications, with integrated arts and sport programmes.", tags: ["O'Level", "A-Level", "Arts & Sport"], color: "blue" },
       ],
       learnMore: "Learn More",
     },
@@ -499,34 +518,36 @@ export const t = {
       desc: "A clear and smooth registration process ensuring our students join with the best possible experience.",
       steps: [
         { num: "1", title: "Submit Application", desc: "Complete the initial registration form online or by visiting the school." },
-        { num: "2", title: "School Tour", desc: "Book a tour to explore facilities and meet the teaching team." },
-        { num: "3", title: "Assessment", desc: "The student undergoes a friendly assessment to determine the appropriate level." },
-        { num: "4", title: "Formal Offer", desc: "Receive the offer letter and complete enrolment procedures and fees." },
+        { num: "2", title: "Placement Test", desc: "The student takes a placement test to determine the appropriate grade level." },
+        { num: "3", title: "School Communication", desc: "The registration office will contact you to complete the registration process." },
       ],
       btnStart: "Start Your Application Now",
     },
 
     admissionsPage: {
-      intro: "Horizon International Schools is an independent British school with two campuses in Riyadh: Al-Woroud (North Riyadh) and Zahrat Laban, offering carefully planned education based on high academic standards with pastoral care and commitment to developing each child. Currently accepting applications for 2025-2026 and 2026-2027.",
+      get intro() {
+        const [a, b] = academicYears();
+        return `Horizon International Schools is an American & British school with two campuses in Riyadh: Al-Woroud (North Riyadh) and Zahrat Laban, offering carefully planned education based on high academic standards with pastoral care and commitment to developing each child. Currently accepting applications for ${a.replace("/", "-")} and ${b.replace("/", "-")}.`;
+      },
       registrarEmail: "Info@horizon.sch.sa",
       registrarPhone: "+920015440",
       registrarExt: "",
       stages: {
         title: "Academic Stages Offered",
         list: [
-          { stage: "Early Years Foundation Stage (EYFS)", age: "Ages 3 – 5", icon: "🌟" },
-          { stage: "Key Stage 1 (KS1)", age: "Age 5+", icon: "📖" },
-          { stage: "Key Stage 2 (KS2)", age: "Age 7+", icon: "🔬" },
-          { stage: "Key Stage 3 (KS3)", age: "Age 11+", icon: "🚀" },
+          { stage: "Kindergarten", age: "Ages 3 – 5", icon: "🌟" },
+          { stage: "Primary", age: "Ages 5 – 11", icon: "📖" },
+          { stage: "Middle School", age: "Ages 11 – 14", icon: "🚀" },
+          { stage: "High School", age: "Ages 14+", icon: "🎓" },
+          { stage: "British IGCSE School (O'Level & A-Level)", age: "All Ages", icon: "🎭" },
         ],
       },
       journey: {
-        title: "Your Admission Journey",
+        title: "Registration Stages",
         steps: [
-          { num: "1", title: "Enquiry", color: "#7A24B2", items: ["Receive full information package", "British curriculum overview", "Fee structure details", "School tour invitation"] },
-          { num: "2", title: "School Tour", color: "#7C3AED", items: ["Observe classes and specialist lessons", "Explore learning spaces and facilities", "Meet the pastoral care team", "Meet leadership members"] },
-          { num: "3", title: "Assessment & Registration", color: "#B300C4", items: ["Age-appropriate evaluations", "Review of previous school reports", "Informal interviews if needed"] },
-          { num: "4", title: "Offer & Acceptance", color: "#DC2626", items: ["Formal offer letter issued", "Acceptance documents", "Payment instructions and next steps"] },
+          { num: "1", title: "Submit Application", color: "#7A24B2", items: ["Complete the online registration form", "Enter student and parent details", "Upload the required documents"] },
+          { num: "2", title: "Placement Test", color: "#7C3AED", items: ["Placement test suited to the student's level", "Determine the most appropriate grade"] },
+          { num: "3", title: "School Communication", color: "#B300C4", items: ["The registration office will contact you to complete the registration process"] },
         ],
       },
       documents: {
@@ -540,7 +561,7 @@ export const t = {
         items: [
           "Parent/guardian name and contact details",
           "Child's name and date of birth",
-          "Expected academic year (2025-2026 or 2026-2027)",
+          "Expected academic year",
           "How you heard about Horizon International Schools",
         ],
       },
@@ -556,7 +577,7 @@ export const t = {
       },
       feesNote: "Contact us for fee enquiries",
       contactRegistrar: "Contact Admissions Team",
-      acceptedYears: "Academic Year 2025/2026 & 2026/2027",
+      get acceptedYears() { const [a, b] = academicYears(); return `Academic Year ${a} & ${b}`; },
     },
 
     feesPage: {
@@ -659,6 +680,10 @@ export const t = {
         snapchat: "https://www.snapchat.com/add/horizonschool3",
         instaWoroud: "https://www.instagram.com/horizonsch?igsh=MXkxdjhoMGpjN3c4Zg==",
         instaLaban: "https://www.instagram.com/horizon_sch?igsh=MW03YmUxZXRjMWRreg==",
+        tiktok: "https://www.tiktok.com/@horizon.internati3",
+        youtube: "https://www.youtube.com/@HorizonSchSa",
+        tiktokLabel: "TikTok",
+        youtubeLabel: "YouTube",
         fbWoroudLabel: "Facebook Woroud",
         fbLabanLabel: "Facebook Laban",
         snapchatLabel: "Snapchat",
@@ -678,7 +703,7 @@ export const t = {
         level: "Year Group *",
         levels: ["Pre-School (Ages 3–5)", "Primary (Ages 5–11)", "Prep (Ages 11–14)"],
         year: "Academic Year",
-        years: ["2025/2026", "2026/2027"],
+        get years() { return academicYears(); },
         parentName: "Parent/Guardian Full Name *", phone: "Mobile Number *",
         email: "Email Address *", nationality: "Nationality",
         nationalities: ["Saudi", "British", "American", "Other"],
@@ -728,12 +753,12 @@ export const t = {
       woroud: {
         name: "Al-Woroud Branch",
         desc: "Main Campus — Al-Woroud District, Riyadh",
-        portal: "https://horizon.sch.sa/grand/shareedulogin/",
+        portal: PORTAL_URL,
       },
       laban: {
         name: "Zahrat Laban Branch",
         desc: "Zahrat Laban District, West Riyadh",
-        portal: "https://laban.horizon.sch.sa/grand/shareedulogin/",
+        portal: PORTAL_URL,
       },
     },
 
@@ -742,7 +767,6 @@ export const t = {
       title: "Accredited by the World's Most Prestigious Bodies",
       items: [
         { name: "Cognia (AdvancED)", icon: "🌐" },
-        { name: "WASC", icon: "🎓" },
         { name: "AIAA", icon: "🏅" },
       ],
     },

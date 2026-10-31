@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import SubPage from "@/components/SubPage";
-import { type Locale } from "@/lib/i18n";
+import { type Locale, academicYears } from "@/lib/i18n";
 
 const C = {
   primary: "#7A24B2", dark: "#2D0864", gold: "#B300C4",
@@ -338,7 +338,7 @@ export default function FormalRegistrationClient({ locale }: { locale: Locale })
                       <Select label={isRtl ? "شهادة التطعيم" : "Vaccination Certificate"} name="childVaccinated" required
                         options={isRtl ? ["مكتملة", "جزئية", "غير متوفرة"] : ["Complete", "Partial", "Not Available"]} />
                       <Select label={isRtl ? "سنة الالتحاق المتوقعة" : "Expected Entry Year"} name="childEntryYear" required
-                        options={["2025/2026", "2026/2027"]} />
+                        options={academicYears()} />
                       <Select label={isRtl ? "الفصل الدراسي" : "Term of Entry"} name="childEntryTerm" required
                         options={isRtl ? ["الفصل الأول", "الفصل الثاني", "الفصل الثالث"] : ["Term 1", "Term 2", "Term 3"]} />
                     </div>

@@ -343,7 +343,12 @@ function GallerySlider({ images, isRtl, dark, gold, bg, speed }: { images: strin
 
       {/* Full-width slider */}
       <div
-        style={{ position: "relative", width: "100%", overflow: "hidden" }}
+        style={{
+          position: "relative", width: "calc(100% - 4rem)", maxWidth: 960, margin: "0 auto",
+          overflow: "hidden", borderRadius: 24, border: "8px solid #fff",
+          boxShadow: `0 24px 60px rgba(61,19,115,.22), 0 0 0 1px ${gold}55`,
+          background: dark,
+        }}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
@@ -684,25 +689,20 @@ export default function HomePage({ locale, dbEvent, dbTestimonials, aboutImage, 
             </span>
           </div>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "clamp(2rem,5vw,5rem)", flexWrap: "wrap" }}>
-            {/* Cognia badge */}
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
-              <img src="/img/accreditations/cognia.png" alt="Cognia Accreditation" loading="lazy"
-                style={{ height: 90, width: 90, objectFit: "contain" }} />
-              <span style={{ fontSize: 11, fontWeight: 600, color: "#808080", letterSpacing: .5 }}>Cognia (AdvancED)</span>
-            </div>
-            {/* AIAA badge */}
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
-              <img src="/img/accreditations/aiaa.png" alt="AIAA Accreditation" loading="lazy"
-                style={{ height: 70, width: 160, objectFit: "contain" }} />
-              <span style={{ fontSize: 11, fontWeight: 600, color: "#808080", letterSpacing: .5 }}>AIAA</span>
-            </div>
-            {/* WASC text badge */}
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
-              <div style={{ height: 70, width: 90, display: "flex", alignItems: "center", justifyContent: "center", background: "#f0e8f8", borderRadius: 16, border: "2px solid #7A24B2" }}>
-                <span style={{ fontSize: 26, fontWeight: 900, color: "#7A24B2", letterSpacing: -1 }}>WASC</span>
+            {[
+              { src: "/img/accreditations/cognia-logo.jpg",       alt: "Cognia",           label: "Cognia" },
+              { src: "/img/accreditations/cambridge-igcse.jpg",   alt: "Cambridge IGCSE",  label: "Cambridge IGCSE" },
+              { src: "/img/accreditations/pearson-edexcel.jpg",   alt: "Pearson Edexcel",  label: "Pearson Edexcel" },
+              { src: "/img/accreditations/aiaa-logo.jpg",         alt: "AIAA",             label: "AIAA" },
+            ].map((l) => (
+              <div key={l.label} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
+                <div style={{ width: 180, height: 100, display: "flex", alignItems: "center", justifyContent: "center", background: "#fff", border: "1px solid #E8E0F5", borderRadius: 16, padding: 12, boxShadow: "0 6px 20px rgba(61,19,115,.08)", overflow: "hidden" }}>
+                  <img src={l.src} alt={`${l.alt} Accreditation`} loading="lazy"
+                    style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }} />
+                </div>
+                <span style={{ fontSize: 11, fontWeight: 600, color: "#808080", letterSpacing: .5 }}>{l.label}</span>
               </div>
-              <span style={{ fontSize: 11, fontWeight: 600, color: "#808080", letterSpacing: .5 }}>WASC</span>
-            </div>
+            ))}
           </div>
         </div>
       </div>
@@ -1084,7 +1084,7 @@ export default function HomePage({ locale, dbEvent, dbTestimonials, aboutImage, 
                     { label: tr.branchesPage.parentPortal,  utype: 2, icon: "👨‍👩‍👧" },
                     { label: tr.branchesPage.staffPortal,   utype: 1, icon: "👩‍🏫" },
                   ].map((p) => (
-                    <a key={p.utype} href={`${b.portal}?Utype=${p.utype}`} target="_blank" rel="noopener noreferrer"
+                    <a key={p.utype} href={b.portal} target="_blank" rel="noopener noreferrer"
                       style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "8px 14px", borderRadius: 10, background: "rgba(255,255,255,.09)", border: "1px solid rgba(255,255,255,.14)", color: "#fff", textDecoration: "none", fontSize: 13, fontWeight: 600, fontFamily: "Cairo,sans-serif", transition: "background .2s" }}
                       onMouseEnter={e => (e.currentTarget.style.background = "rgba(179,0,196,.35)")}
                       onMouseLeave={e => (e.currentTarget.style.background = "rgba(255,255,255,.09)")}>
@@ -1116,6 +1116,8 @@ export default function HomePage({ locale, dbEvent, dbTestimonials, aboutImage, 
                 { href: tr.footer.social.snapchat,    label: tr.footer.social.snapchatLabel,    icon: "👻" },
                 { href: tr.footer.social.instaWoroud, label: tr.footer.social.instaWoroudLabel, icon: "📸" },
                 { href: tr.footer.social.instaLaban,  label: tr.footer.social.instaLabanLabel,  icon: "📸" },
+                { href: tr.footer.social.tiktok,      label: tr.footer.social.tiktokLabel,      icon: "🎵" },
+                { href: tr.footer.social.youtube,     label: tr.footer.social.youtubeLabel,     icon: "▶️" },
               ].map((s, i) => (
                 <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" title={s.label}
                   className="social-icon"

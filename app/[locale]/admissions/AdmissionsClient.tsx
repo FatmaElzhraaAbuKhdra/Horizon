@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 // No GSAP — uses native IntersectionObserver for scroll animations
 import Link from "next/link";
 import SubPage from "@/components/SubPage";
-import { type Locale, t, REGISTRATION_URL } from "@/lib/i18n";
+import { type Locale, t, REGISTRATION_URL, PAYMENT_URL, PAYMENT_PHONE } from "@/lib/i18n";
 
 const C = {
   primary:     "#7A24B2",
@@ -355,7 +355,7 @@ export default function AdmissionsClient({ locale, dbSteps }: { locale: Locale; 
         {/* ── 3. Admission Journey ── */}
         <section className="adm-section" style={{ background: C.bg }}>
           <div style={{ maxWidth: 1000, margin: "0 auto" }}>
-            <div className="adm-section-tag">🗺️ {isRtl ? "مسار القبول" : "Admission Journey"}</div>
+            <div className="adm-section-tag">🗺️ {isRtl ? "مراحل التسجيل" : "Registration Stages"}</div>
             <h2 className="adm-h2">{adm.journey.title}</h2>
             <div className="adm-journey-grid">
               {journeySteps.map((step, i) => (
@@ -433,7 +433,7 @@ export default function AdmissionsClient({ locale, dbSteps }: { locale: Locale; 
         <section className="adm-section" style={{ background: C.bg }}>
           <div style={{ maxWidth: 1000, margin: "0 auto" }}>
             <div className="adm-section-tag">💳 {isRtl ? "الرسوم والسداد" : "Fees & Payment"}</div>
-            <div className="adm-two-col">
+            <div className="adm-two-col" style={{ gridTemplateColumns: "1fr" }}>
 
               {/* Payment card */}
               <div className="adm-payment-card">
@@ -450,25 +450,16 @@ export default function AdmissionsClient({ locale, dbSteps }: { locale: Locale; 
                     {isRtl ? "أقساط شهرية" : "monthly installments"}
                   </div>
                 </div>
-              </div>
-
-              {/* Fees enquiry */}
-              <div className="adm-info-card" style={{ display: "flex", flexDirection: "column", justifyContent: "center", textAlign: "center", gap: "1rem" }}>
-                <div style={{ fontSize: 48, opacity: .25 }}>💰</div>
-                <div style={{ fontSize: 16, fontWeight: 700, color: C.dark }}>{adm.feesNote}</div>
-                <div style={{ fontSize: 13, color: C.muted, lineHeight: 1.6 }}>
-                  {isRtl
-                    ? "الرسوم الدراسية تختلف حسب المرحلة الدراسية. يُرجى التواصل مع فريق القبول للاطلاع على الهيكل الكامل."
-                    : "Tuition fees vary by academic stage. Please contact our admissions team for the full fee structure."
-                  }
-                </div>
-                <div style={{ display: "flex", gap: ".75rem", justifyContent: "center", flexWrap: "wrap" }}>
-                  <a href={`mailto:${adm.registrarEmail}`} className="adm-cta-btn adm-cta-primary" style={{ fontSize: 13 }}>
-                    ✉️ {adm.contactRegistrar}
+                <div style={{ display: "flex", gap: ".85rem", flexWrap: "wrap", alignItems: "center", marginTop: "1.5rem", position: "relative", zIndex: 1 }}>
+                  <a href={`tel:${PAYMENT_PHONE}`} dir="ltr"
+                    style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "10px 18px", borderRadius: 12, background: "rgba(255,255,255,.10)", border: "1px solid rgba(255,255,255,.2)", color: "#fff", fontWeight: 700, fontSize: 15, textDecoration: "none" }}>
+                    📞 {PAYMENT_PHONE}
                   </a>
-                  <Link href={`/${locale}/contact`} className="adm-cta-btn adm-cta-outline" style={{ fontSize: 13 }}>
-                    {isRtl ? "تواصل معنا" : "Contact Us"}
-                  </Link>
+                  <a href={PAYMENT_URL} target="_blank" rel="noopener noreferrer"
+                    aria-label={isRtl ? "الدفع الإلكتروني" : "Pay online"}
+                    style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "10px 18px", borderRadius: 12, background: "#B300C4", color: "#fff", fontWeight: 700, fontSize: 15, textDecoration: "none" }}>
+                    💳 {isRtl ? "ادفع الآن" : "Pay Now"}
+                  </a>
                 </div>
               </div>
             </div>

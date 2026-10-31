@@ -13,8 +13,8 @@ const D: Record<string, { ar: string; en: string }> = {
     en: 'Horizon International Schools is a leading international educational institution founded in 1999 in Riyadh, combining the best of British and American curricula with authentic Arab Islamic identity. The school offers a comprehensive educational experience for ages 3 to 18 across two campuses in the heart of Riyadh.',
   },
   "about.british": {
-    ar: 'تتميز مدارس الأفق العالمية بتقديم منهج دولي معتمد يجمع بين المنهج البريطاني والأمريكي، مما يضمن تحضيرًا شاملًا للطلاب لمرحلة التعليم العالي في أرقى الجامعات حول العالم. حصلت المدرسة على اعتمادات دولية مرموقة من Cognia (AdvancED) وWASC وAIAA.\n\nتعمل مدارس الأفق العالمية بشكل مستقل، يديرها فريق إداري متخصص يضع معايير عالية في التدريس والرعاية التربوية والبيئة المدرسية، مع الحرص الدائم على تحقيق التوازن بين متطلبات التعليم الدولي والهوية الإسلامية العربية.',
-    en: 'Horizon International Schools offers an accredited international curriculum combining British and American approaches, ensuring comprehensive preparation for students aspiring to top universities worldwide. The school holds international accreditations from Cognia (AdvancED), WASC, and AIAA.\n\nHorizon International Schools operates independently, managed by a specialised professional team upholding high standards in teaching, pastoral care, and school environment — always balancing international educational excellence with Arab Islamic identity.',
+    ar: 'تتميز مدارس الأفق العالمية بتقديم منهج دولي معتمد يجمع بين المنهج البريطاني والأمريكي، مما يضمن تحضيرًا شاملًا للطلاب لمرحلة التعليم العالي في أرقى الجامعات حول العالم. حصلت المدرسة على اعتمادات دولية مرموقة من Cognia (AdvancED) وAIAA.\n\nتعمل مدارس الأفق العالمية بشكل مستقل، يديرها فريق إداري متخصص يضع معايير عالية في التدريس والرعاية التربوية والبيئة المدرسية، مع الحرص الدائم على تحقيق التوازن بين متطلبات التعليم الدولي والهوية الإسلامية العربية.',
+    en: 'Horizon International Schools offers an accredited international curriculum combining British and American approaches, ensuring comprehensive preparation for students aspiring to top universities worldwide. The school holds international accreditations from Cognia (AdvancED) and AIAA.\n\nHorizon International Schools operates independently, managed by a specialised professional team upholding high standards in teaching, pastoral care, and school environment — always balancing international educational excellence with Arab Islamic identity.',
   },
   "about.model": {
     ar: 'تُعدّ مدارس الأفق العالمية نموذجاً فريداً في التعليم الدولي بالمملكة العربية السعودية، إذ تجمع بين المنهجين البريطاني والأمريكي في بيئة تعليمية عربية إسلامية متكاملة. والأهم — كيف يؤثر هذا النهج إيجابًا على تجربة طفلكم وتعليمه ومستقبله؟',
@@ -61,7 +61,7 @@ const D: Record<string, { ar: string; en: string }> = {
 };
 
 const DEFAULT_BENEFITS = [
-  { icon:"🏅", titleAr:"اعتماد دولي مرموق", titleEn:"Prestigious International Accreditation", bodyAr:"حاصلون على اعتمادات دولية من Cognia (AdvancED) وWASC وAIAA، مما يضمن معايير تعليمية عالمية عالية.", bodyEn:"Accredited by Cognia (AdvancED), WASC, and AIAA, ensuring the highest international educational standards." },
+  { icon:"🏅", titleAr:"اعتماد دولي مرموق", titleEn:"Prestigious International Accreditation", bodyAr:"حاصلون على اعتمادات دولية من Cognia (AdvancED) وAIAA، مما يضمن معايير تعليمية عالمية عالية.", bodyEn:"Accredited by Cognia (AdvancED) and AIAA, ensuring the highest international educational standards." },
   { icon:"👨‍🏫", titleAr:"كادر تدريسي متخصص ومؤهل", titleEn:"Qualified & Specialised Teaching Staff", bodyAr:"يتم اختيار كل معلم من خلال عملية توظيف دقيقة متعددة المراحل، مع إعطاء الأولوية للكفاءة التخصصية والنزاهة المهنية.", bodyEn:"Each teacher is selected through a rigorous multi-stage recruitment process, prioritising subject expertise and professional integrity." },
   { icon:"🌐", titleAr:"بيئة دولية متنوعة", titleEn:"Diverse International Environment", bodyAr:"يدرس في مدارسنا طلاب من جنسيات عالمية متعددة، مما يُثري التجربة التعليمية ويُنمي مهارات التواصل الدولي.", bodyEn:"Students from diverse nationalities study together, enriching the educational experience and developing international communication skills." },
   { icon:"📚", titleAr:"منهج بريطاني وأمريكي معتمد", titleEn:"Accredited British & American Curriculum", bodyAr:"منهج دولي متكامل يجمع أفضل ما في المنهجين البريطاني والأمريكي مع مراعاة المقررات الوطنية.", bodyEn:"A comprehensive international curriculum combining the best of British and American approaches, alongside national requirements." },
@@ -148,6 +148,66 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               </h2>
               <p style={{ color: "rgba(255,255,255,.88)", lineHeight: 1.9, maxWidth: 680, margin: "0 auto", fontSize: 15 }}>
                 {s("about.intro")}
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ── 1b. Vision, Mission & Learner Profile ── */}
+        <section style={{ padding: "3rem 2rem 0" }}>
+          <div style={{ maxWidth: 940, margin: "0 auto", display: "grid", gap: "1.5rem" }} className="reveal reveal-2">
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: "1.5rem" }}>
+              <div style={{ background: C.card, borderRadius: 20, padding: "2.25rem", border: `1px solid ${C.border}` }}>
+                <div style={{ color: C.gold, fontSize: 11, fontWeight: 800, letterSpacing: 2, marginBottom: ".75rem" }}>{isRtl ? "رؤيتنا" : "OUR VISION"}</div>
+                <p style={{ color: C.muted, lineHeight: 1.9, fontSize: 15, margin: 0 }}>
+                  {isRtl
+                    ? "نضمن بيئة تُنمّي نظاماً تعليمياً متميزاً لطلابنا، يركّز على الجودة لا الكمّ، مع مراعاة أهمية ثقافتهم العربية ومشاركتهم في مجتمع عالمي متزايد."
+                    : "We guarantee an environment that fosters an excellent education system for our students, focusing on quality not quantity, taking into consideration the significance of their Arabic culture and their participation in an increasingly global society."}
+                </p>
+              </div>
+              <div style={{ background: C.card, borderRadius: 20, padding: "2.25rem", border: `1px solid ${C.border}` }}>
+                <div style={{ color: C.gold, fontSize: 11, fontWeight: 800, letterSpacing: 2, marginBottom: ".75rem" }}>{isRtl ? "رسالتنا" : "OUR MISSION"}</div>
+                <ul style={{ color: C.muted, lineHeight: 1.9, fontSize: 15, margin: 0, paddingInlineStart: "1.2rem" }}>
+                  {(isRtl
+                    ? ["تقديم خدمات وأنشطة عالية الجودة تسهم في تنمية الفرد والمجتمع", "إكساب طلابنا قيماً ومهارات ليكونوا مواطنين عالميين", "بناء مجتمع يجمع جنسيات متنوعة في انسجام"]
+                    : ["Producing quality services and activities that participate in developing both the individual and the community", "Introducing quality values and skills to our students to be global citizens", "Constructing a community that brings a variety of nationalities in harmony"]
+                  ).map((m, i) => <li key={i}>{m}</li>)}
+                </ul>
+              </div>
+            </div>
+
+            <div style={{ background: C.card, borderRadius: 20, padding: "2.25rem", border: `1px solid ${C.border}` }}>
+              <div style={{ color: C.gold, fontSize: 11, fontWeight: 800, letterSpacing: 2, marginBottom: ".75rem" }}>{isRtl ? "منهجنا" : "OUR CURRICULUM"}</div>
+              <p style={{ color: C.muted, lineHeight: 1.9, fontSize: 15, margin: 0 }}>
+                {isRtl
+                  ? "منهجنا متوافق مع رؤيتنا، ويعتمد على معايير CCSS للغة الإنجليزية والرياضيات، ومعايير NGSS للعلوم، ومنهج وزارة التعليم للغة العربية والدراسات الإسلامية والاجتماعيات السعودية."
+                  : "Our curriculum is aligned with our vision. It is based on CCSS (English and mathematics), NGSS (science), and the Ministry of Education curriculum for Arabic, Islamic studies, and Saudi social studies."}
+              </p>
+            </div>
+
+            <div style={{ background: C.dark, borderRadius: 20, padding: "2.5rem", color: "#fff" }}>
+              <div style={{ textAlign: "center", marginBottom: "1.75rem" }}>
+                <div style={{ color: "#E9B3F0", fontSize: 11, fontWeight: 800, letterSpacing: 2 }}>{isRtl ? "ملف المتعلم" : "HORIZON LEARNER PROFILE"}</div>
+                <h3 style={{ fontFamily: "Amiri,serif", fontSize: 26, margin: ".5rem 0 0" }}>{isRtl ? "هذا هو من نحن في مدرستنا!" : "This is who we are at our school!"}</h3>
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(190px,1fr))", gap: "1rem" }}>
+                {[
+                  { icon: "🔍", en: "Inquirers",    ar: "الباحثون",       itemsEn: ["I ask questions", "I am curious", "I explore ideas", "I find answers"], itemsAr: ["أطرح الأسئلة", "أنا فضولي", "أستكشف الأفكار", "أجد الإجابات"] },
+                  { icon: "🧠", en: "Thinkers",     ar: "المفكرون",       itemsEn: ["I explain my thinking", "I solve problems", "I give reasons", "I think deeply"], itemsAr: ["أشرح تفكيري", "أحل المشكلات", "أعلّل رأيي", "أفكر بعمق"] },
+                  { icon: "🌍", en: "Open-minded",  ar: "المنفتحون",      itemsEn: ["I listen to others", "I respect opinions", "I learn new ideas", "I am fair"], itemsAr: ["أستمع للآخرين", "أحترم الآراء", "أتعلم أفكاراً جديدة", "أنا عادل"] },
+                  { icon: "🚀", en: "Risk-takers",  ar: "المبادرون",      itemsEn: ["I try new things", "I am not afraid", "I share ideas", "I challenge myself"], itemsAr: ["أجرّب أشياء جديدة", "لا أخاف", "أشارك أفكاري", "أتحدى نفسي"] },
+                ].map((p) => (
+                  <div key={p.en} style={{ background: "rgba(255,255,255,.08)", border: "1px solid rgba(255,255,255,.14)", borderRadius: 16, padding: "1.25rem" }}>
+                    <div style={{ fontSize: 28, marginBottom: 6 }}>{p.icon}</div>
+                    <div style={{ fontWeight: 800, fontSize: 16, marginBottom: ".5rem" }}>{isRtl ? p.ar : p.en}</div>
+                    {(isRtl ? p.itemsAr : p.itemsEn).map((it) => (
+                      <div key={it} style={{ fontSize: 13.5, color: "rgba(255,255,255,.78)", lineHeight: 1.8 }}>• {it}</div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+              <p style={{ textAlign: "center", margin: "1.5rem 0 0", color: "rgba(255,255,255,.85)", fontWeight: 600 }}>
+                {isRtl ? "نحن لا نتعلم فقط… بل ننمو كل يوم!" : "We don't just learn… we grow every day!"}
               </p>
             </div>
           </div>

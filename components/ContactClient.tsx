@@ -193,7 +193,9 @@ export default function ContactClient({ locale, contactInfo }: { locale: Locale;
                   <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,.40)", marginBottom: 4 }}>
                     {isRtl ? "موقعنا" : "Our Location"}
                   </div>
-                  <div style={{ fontSize: 18, fontWeight: 700, color: "#fff", whiteSpace: "pre-line" }}>{ci.address}</div>
+                  <div style={{ fontSize: 18, fontWeight: 700, color: "#fff", whiteSpace: "pre-line" }}>
+                    {[tr.contact.addressWoroud, tr.contact.addressLaban].join("\n")}
+                  </div>
                 </div>
               </div>
 
@@ -301,6 +303,8 @@ export default function ContactClient({ locale, contactInfo }: { locale: Locale;
                     { icon: "👻", label: tr.footer.social.snapchatLabel,    href: tr.footer.social.snapchat    },
                     { icon: "📸", label: tr.footer.social.instaWoroudLabel, href: tr.footer.social.instaWoroud },
                     { icon: "📸", label: tr.footer.social.instaLabanLabel,  href: tr.footer.social.instaLaban  },
+                    { icon: "🎵", label: tr.footer.social.tiktokLabel,      href: tr.footer.social.tiktok      },
+                    { icon: "▶️", label: tr.footer.social.youtubeLabel,     href: tr.footer.social.youtube     },
                   ].map((s, i) => (
                     <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" className="cc-social" title={s.label}
                       style={{ padding: "6px 12px", borderRadius: 12, border: `1.5px solid ${C.border}`, background: C.card, display: "flex", alignItems: "center", gap: 6, fontSize: 13, fontWeight: 600, color: C.muted, textDecoration: "none", whiteSpace: "nowrap" }}>

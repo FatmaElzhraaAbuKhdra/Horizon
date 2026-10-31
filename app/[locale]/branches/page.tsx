@@ -60,7 +60,7 @@ export default function BranchesPage() {
                 <div style={{ padding: "1.5rem 2rem 2rem", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
                   {portals.map(p => (
                     <a key={p.key}
-                      href={`${portal}?Utype=${p.utype}`}
+                      href={portal}
                       target="_blank"
                       rel="noopener noreferrer"
                       className={`branch-portal-btn ${p.key}`}

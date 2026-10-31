@@ -91,7 +91,7 @@ export const t = {
       title: "تميّز أكاديمي دولي منذ ١٩٩٩",
       badge: "١٩٩٩",
       badgeLabel: "سنة التأسيس",
-      p1: "مدارس الأفق العالمية مؤسسة تعليمية رائدة تأسست عام ١٩٩٩ في الرياض، تقدم تجربة تعليمية دولية متكاملة تجمع بين المنهجين البريطاني والأمريكي مع صون الهوية العربية الإسلامية الأصيلة.",
+      p1: "مدارس الأفق العالمية مؤسسة تعليمية رائدة تأسست عام ١٩٩٩ في الرياض، تقدم تجربة تعليمية دولية متكاملة تجمع بين المنهجين الأمريكي والبريطاني مع صون الهوية العربية الإسلامية الأصيلة.",
       p2: "نمتلك فرعين في قلب الرياض ونفخر بحصولنا على اعتمادات دولية من Cognia (AdvancED) وAIAA، مما يضمن لطلابنا تجربة تعليمية استثنائية تؤهلهم للمنافسة على المستوى العالمي.",
       features: [
         { icon: "📚", title: "منهج معتمد دولياً", desc: "اعتماد كامل من الجهات البريطانية" },
@@ -283,7 +283,7 @@ export const t = {
     },
 
     footer: {
-      desc: "مدارس دولية رائدة تجمع المنهجين البريطاني والأمريكي مع الهوية العربية الإسلامية في قلب الرياض.",
+      desc: "مدارس دولية رائدة تجمع المنهجين الأمريكي والبريطاني مع الهوية العربية الإسلامية في قلب الرياض.",
       quickLinks: "روابط سريعة",
       admissions: "القبول",
       policies: "السياسات",
@@ -473,7 +473,7 @@ export const t = {
       title: "International Excellence Since 1999",
       badge: "1999",
       badgeLabel: "Year Founded",
-      p1: "Horizon International Schools is a leading educational institution founded in Riyadh in 1999, offering an integrated international experience that combines British and American curricula while preserving authentic Arab Islamic identity.",
+      p1: "Horizon International Schools is a leading educational institution founded in Riyadh in 1999, offering an integrated international experience that combines American and British curricula while preserving authentic Arab Islamic identity.",
       p2: "With two campuses in Riyadh and international accreditations from Cognia (AdvancED) and AIAA, we ensure our students receive an exceptional education that prepares them to compete on the global stage.",
       features: [
         { icon: "📚", title: "Internationally Accredited", desc: "Full UK accreditation" },
@@ -665,7 +665,7 @@ export const t = {
     },
 
     footer: {
-      desc: "Leading international schools combining British & American curricula with Arab Islamic identity in the heart of Riyadh.",
+      desc: "Leading international schools combining American & British curricula with Arab Islamic identity in the heart of Riyadh.",
       quickLinks: "Quick Links",
       admissions: "Admissions",
       policies: "Policies",

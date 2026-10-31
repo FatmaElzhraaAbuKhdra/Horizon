@@ -3,8 +3,8 @@ import { t, type Locale } from "@/lib/i18n";
 import { LocaleAttributes } from "@/components/LocaleAttributes";
 
 const DESCRIPTIONS = {
-  ar: "مدارس الأفق العالمية — تعليم عالمي متميز يجمع المنهج البريطاني والأمريكي مع الهوية العربية الإسلامية. فرعان في الرياض: حي الورود وظهرة لبن. سجّل الآن.",
-  en: "Horizon International Schools — world-class education combining British & American curricula with Arab Islamic identity. Two campuses in Riyadh: Al-Woroud & Zahrat Laban. Register now.",
+  ar: "مدارس الأفق العالمية — تعليم عالمي متميز يجمع المنهج الأمريكي والبريطاني مع الهوية العربية الإسلامية. فرعان في الرياض: حي الورود وظهرة لبن. سجّل الآن.",
+  en: "Horizon International Schools — world-class education combining American & British curricula with Arab Islamic identity. Two campuses in Riyadh: Al-Woroud & Zahrat Laban. Register now.",
 };
 
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://horizon-schools.vercel.app").trim();
@@ -78,7 +78,7 @@ const SCHOOL_SCHEMA = {
   name: "Horizon International Schools",
   alternateName: "مدارس الأفق العالمية",
   url: SITE_URL,
-  description: "Leading international school in Riyadh, Saudi Arabia, combining British & American curricula with Arab Islamic identity. Two campuses: Al-Woroud (North Riyadh) and Zahrat Laban.",
+  description: "Leading international school in Riyadh, Saudi Arabia, combining American & British curricula with Arab Islamic identity. Two campuses: Al-Woroud (North Riyadh) and Zahrat Laban.",
   foundingDate: "1999",
   telephone: "+920015440",
   email: "Info@horizon.sch.sa",

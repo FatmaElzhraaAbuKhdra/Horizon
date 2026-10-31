@@ -154,6 +154,7 @@ const CSS = `
   }
 
   /* ── Hero entry animations (CSS, no JS needed) ── */
+  @media (prefers-reduced-motion: reduce) { .hero-video { display: none; } }
   @keyframes heroIn {
     from { opacity: 0; transform: translateY(28px); }
     to   { opacity: 1; transform: none; }
@@ -595,14 +596,19 @@ export default function HomePage({ locale, dbEvent, dbTestimonials, aboutImage, 
 
         {/* ── Hero background ── */}
         <div style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
-          {heroImage
-            ? <img src={heroImage} alt={isRtl ? "مدارس الأفق العالمية في الرياض" : "Horizon International Schools Riyadh"} decoding="async" fetchPriority="high" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
-            : <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg,#3C0E6E 0%,#2D0864 60%,#6B1EA5 100%)" }} />
-          }
+          <video
+            ref={videoRef}
+            className="hero-video"
+            src="/videos/hero-main.mp4"
+            poster={heroImage ?? "/videos/hero-poster.jpg"}
+            autoPlay muted loop playsInline preload="auto"
+            aria-hidden="true"
+            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+          />
         </div>
 
         {/* Dark overlay — bottom-heavy for text readability */}
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(5,25,18,.90) 0%, rgba(5,25,18,.55) 45%, rgba(5,25,18,.20) 100%)" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(20,4,40,.92) 0%, rgba(20,4,40,.70) 45%, rgba(20,4,40,.50) 100%)" }} />
 
         {/* Subtle gold grain overlay */}
         <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(ellipse 80% 50% at 50% 100%, rgba(179,0,196,.10) 0%, transparent 70%)", pointerEvents: "none" }} />
@@ -622,7 +628,7 @@ export default function HomePage({ locale, dbEvent, dbTestimonials, aboutImage, 
           </div>
 
           {/* Headline — each line animated separately */}
-          <h1 style={{ fontFamily: "Amiri,serif", fontSize: "clamp(38px,5.5vw,70px)", color: "#fff", lineHeight: 1.22, marginBottom: "1.25rem", maxWidth: 760 }}>
+          <h1 style={{ fontFamily: "Amiri,serif", fontSize: "clamp(38px,5.5vw,70px)", color: "#fff", lineHeight: 1.22, marginBottom: "1.25rem", maxWidth: 760, textShadow: "0 2px 18px rgba(0,0,0,.55)" }}>
             <div className="hero-line">{tr.hero.title1}</div>
             <div className="hero-line">
               {tr.hero.title2}{" "}

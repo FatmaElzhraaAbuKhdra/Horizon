@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
-// Set to false (or delete this file) once the site is ready to go live again.
-const MAINTENANCE_MODE = true;
+// Maintenance is ON unless the server's .env sets MAINTENANCE_MODE=false
+// (production keeps it on; the preview instance turns it off for client review).
+const MAINTENANCE_MODE = process.env.MAINTENANCE_MODE !== "false";
 
 export function middleware(req: NextRequest) {
   if (!MAINTENANCE_MODE) return NextResponse.next();
